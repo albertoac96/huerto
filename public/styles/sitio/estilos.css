@@ -1,0 +1,309 @@
+
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+.titulo{
+    color: #552103;
+      font-size: calc(20px + (30 - 20)*(100vw - 320px)/(1920 - 320));
+      font-family: 'Poppins', sans-serif;
+      font-weight:bolder;
+      font-style:normal;
+      text-align: center;
+  }
+
+
+  .texttitle{
+    color: #552103;
+      font-size: calc(16px + (30 - 20)*(100vw - 320px)/(1920 - 320));
+      font-family: 'Poppins', sans-serif;
+      font-style:normal;
+      text-align: center;
+  }
+
+  
+
+  .textcard{
+    color: #313D03;
+      font-size: calc(14px + (30 - 20)*(100vw - 320px)/(1920 - 320));
+      font-family: 'Poppins', sans-serif;
+      font-style:normal;
+      text-align:justify;
+  }
+
+
+  .textcard2{
+    color: #313D03;
+      font-size: calc(10px + (30 - 20)*(100vw - 320px)/(1920 - 320));
+      font-family: 'Poppins', sans-serif;
+      font-style:normal;
+      text-align:justify;
+  }
+
+
+  .img-container{
+    height:250px;
+    overflow:hidden;
+    border-top-left-radius:1em; 
+    border-bottom-right-radius:1em;
+  }
+  .img-container img{
+    height:250px;
+    width: 100%;
+    vertical-align: middle;
+
+    
+  }
+
+
+  .img-circle{
+    height:100px;
+    overflow:hidden;
+    border-top-left-radius:1em; 
+    border-bottom-right-radius:1em;
+  }
+  .img-circle img{
+    width:100%;
+    height:100px;
+    vertical-align: middle;
+    
+  }
+
+
+
+  .subtitulo {
+    color: #552103;
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+    font-family: 'Poppins', sans-serif;
+    font-weight: bolder;
+    font-style: normal;
+    text-align: center;
+}
+
+  .secClara{
+    background-color: #F2F6ED;
+    padding: 6% 5% 6% 5%; 
+    text-align: center;
+  }
+
+  .secFuerte{
+    background-color: #E7EECE;
+    padding: 6% 5% 6% 5%; 
+    text-align: center;
+  }
+
+
+  .verimgcard{
+    border-top-left-radius:3em;
+    border-bottom-right-radius:5em;
+    max-height:250px;
+  }
+
+
+  .contenidoSeccion{
+    padding: 0% 5% 0% 5%;
+    color: #313D03;
+    font-family: 'Ubuntu', sans-serif;
+    font-style: normal;
+    text-align: left;
+    font-size: calc(16px + (22 - 16)*(100vw - 320px)/(1920 - 320));
+  }
+
+  .botonGrande {
+    cursor: pointer;
+    padding: 2.5%;
+    width: 60%;
+    color: #F2F6ED;
+    font-size: calc(16px + (22 - 16)*(100vw - 320px)/(1920 - 320));
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    text-align: center;
+    background-color: #93A603;
+      border-radius: 50px 0px 40px 0px;
+      border-width: 3px;
+      border-color: #E7EECE;
+    margin-top: 1.5%;
+    justify-content: center;
+  }
+  .botonGrande:hover{
+	background-color: #966C54 !important;
+}
+.botonPequeno{
+    cursor: pointer;
+    color: #F2F6ED;
+      font-size: calc(12px + (22 - 16)*(100vw - 320px)/(1920 - 320));
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: normal;
+      font-style:normal;
+      text-align: center;
+      background-color: #93A603;
+      border-radius: 50px 0px 40px 0px;
+      height: 90px;
+      width: 60%;
+      border-width: 3px;
+      border-color: #E7EECE;
+  }
+
+
+.seccionTipo2{
+    padding: 8% 15% 5% 15%;
+    margin-bottom: 10em;
+    background-color: #F2E4C5;
+    border-bottom-left-radius:10em;
+    border-bottom-right-radius:10em;
+    }
+    .seccionTipo2 h2{
+      color: #313D03;
+      font-size: calc(20px + (30 - 20)*(100vw - 320px)/(1920 - 320));
+      font-family: 'Poppins', sans-serif;
+      font-weight:bolder;
+      font-style:normal;
+      text-align: center;
+    }
+    .seccionTipo2 p{
+      font-size: calc(16px + (22 - 16)*(100vw - 320px)/(1920 - 320));
+      font-family: 'Ubuntu', sans-serif;
+        font-style: normal;
+        text-align: center;
+        color: #6E3D01;
+    }
+    .seccionTipo2 h3{
+      font-size: calc(22px + (25 - 22)*(100vw - 320px)/(1920 - 320));
+    }
+
+
+
+ 
+
+      .img-top-left {
+        position: absolute;
+        left: 0;
+        top: 30% !important;
+        opacity: 0.3;
+      }
+
+      .img-bottom-right {
+        position: absolute;
+        right: 0;
+        bottom: 0% !important;
+      }
+
+
+      header{
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 80px 50px 50px 90px 30px;
+        justify-content: center;
+        align-content: space-around;
+        background: url(../images/viejos/imagen_header_h1_huerto_ibero.png)bottom/ auto no-repeat;
+      
+      }
+      .nav-link:hover{
+        /*Modifica lo que quieras*/
+        
+          color: black;
+          margin: 0%;
+           /*background: url(../images/hover_nav.svg)bottom -1% center/ 90% no-repeat;*/
+           background-color: #F2F6ED;
+           border-bottom-left-radius:1em;
+           border-top-right-radius:1em;
+      }
+
+      .fixedInicio{
+        background: url(../../images/background_proyecto_.png)top/ auto no-repeat;
+        min-height: 300px;
+        background-size: 100% auto;
+       
+      }
+
+
+      .textmenu{
+          font-size: calc(24px + (30 - 20)*(100vw - 320px)/(1920 - 320));
+          font-family: 'Poppins', sans-serif;
+          font-style:normal;
+          text-align: center;
+      }
+      
+      .stickyMenu{
+        background: url(../../images/imagen_header_h1_huerto_ibero.png)bottom/ auto no-repeat;
+        height: 100px;
+ 
+      }
+
+      a{
+        color:#FFFFFF;
+      }
+     
+
+
+    
+
+.pageTitle {
+  width: auto;
+  margin: 0;
+  padding: 10px 16px;
+  text-align: left;
+  color: black;
+  line-height: 25px;
+}
+
+.categorySubtitle {
+  width: auto;
+  margin: 0;
+  padding: 5px 16px;
+  text-align: left;
+  color: black;
+  font-size: 16px;
+}
+
+#nombreCientifico {
+  font-style: italic;
+}
+
+.categoryTitle {
+  width: auto;
+  margin: 0;
+  padding: 10px 16px;
+  text-align: left;
+  color: #000;
+  font-size: 20px;
+}
+
+.infoTable {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  background-color: #7b9783;
+}
+
+.inlineContainer img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.infoTable th {
+
+  top: 85px;
+  margin: 0;
+  padding: 10px 0;
+
+  border-bottom: 1px solid #7b9783;
+}
+
+.infoTable td {
+  vertical-align: top;
+  border-bottom: 1px solid #7b9783;
+}
+
+.estacion {
+    text-align: center;  /* Centra el texto debajo del icono */
+    width: 50px;
+    margin: 5px;
+    display: inline-block; /* Alinea los elementos horizontalmente */
+}
+
+
+
+      

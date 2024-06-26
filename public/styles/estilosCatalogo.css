@@ -1,0 +1,1070 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Ubuntu:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Ubuntu:ital@1&display=swap');
+
+*{
+  padding: 0px;
+  box-sizing: border-box;  
+}
+
+img{max-width: 100%;}
+video{max-width: 100%;}
+figure{margin: 0%;}
+p{
+  line-height: 1.3;
+  font-size: calc(18px + (22 - 18)*(100vw - 320px)/(1920 - 320));
+}
+section, article, aside, footer, figure, figcaption, header, nav { 
+  display:block; 
+}
+figcaption{
+  margin-top: 5%;
+}
+body{
+  margin: 0%;
+}
+header{
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 80px 50px 50px 90px 30px;
+  justify-content: center;
+  align-content: space-around;
+  background: url(images/background_contacto_.png)bottom/ auto no-repeat;
+}
+
+
+h2{
+  color: #552103;
+  font-size: calc(20px + (30 - 20)*(100vw - 320px)/(1920 - 320));
+  font-family: 'Poppins', sans-serif;
+  font-weight: bolder;
+  font-style: normal;
+  text-align: center;
+}
+h3{
+  color: #6E3D01;
+    font-size: calc(20px + (25 - 20)*(100vw - 320px)/(1920 - 320));
+    font-family: 'Poppins', sans-serif;
+    font-weight: normal;
+    font-style:normal;
+    text-align: center;
+}
+
+
+.botonPequeno {
+  cursor: pointer;
+  color: #F2F6ED;
+  font-size: calc(16px + (22 - 16)*(100vw - 320px)/(1920 - 320));
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  text-align: center;
+  background-color: #93A603;
+  border-radius: 50px 0px 40px 0px;
+  height: 40px;
+  border-width: 3px;
+  border-color: #E7EECE;
+	z-index:10;
+}
+
+.texto p{
+  color: #6E3D01;
+  font-family: 'Ubuntu', sans-serif;
+  font-style: normal;
+  text-align: center;
+  font-size: calc(22px + (23 - 22)*(100vw - 320px)/(1920 - 320));
+}
+.contenedorcama{
+	position: relative;
+}
+.interactive-map {
+  background: url(images/fondo_catalogo_1.png) left top/100% auto no-repeat #F2F6ED;
+}
+
+/*Inforgafia*/
+
+.st0{fill:#E0E0E0;}
+	.st1{fill:#97A35A;}
+	.st2{fill:#98996A;}
+	.st3{fill:#B6C0A9;}
+	.st4{fill:#010101;stroke:#69926C;stroke-width:9;stroke-miterlimit:10;}
+	.st5{stroke:#69926C;stroke-width:9;stroke-miterlimit:10;fill: #000}
+	.st6{fill:#F9F9F9;}
+	.st7{opacity:0.44;fill:#E7EECE;}
+	.st8{opacity:0.97;fill:#E7EECE;}
+	.st9{opacity:0.53;fill:#E7EECE;}
+	.st10{opacity:0.71;fill:#E7EECE;}
+	.st11{opacity:0.87;fill:#E7EECE;}
+	.st12{opacity:0.87;fill:#E7EECE;}
+	.st13{opacity:0.87;fill:#E7EECE;}
+	.st14{opacity:0.18;fill:#E7EECE;}
+.interactive-map {
+  padding: 3rem 3rem 20rem 3rem;
+}
+
+.interactive-map h2 {
+  margin-top: 2vh;
+}
+.texto h2 {
+	    background: url(images/formas-curva-logo-huerto-ibero.png) 0% 8%/7% no-repeat;
+}
+.catalogo2 h2{
+	    background: url(images/formas-curva-logo-huerto-ibero.png) 26% 8%/7% no-repeat;
+	flex-basis: 100%;
+}
+.sitiosRec h2{
+	background: url(images/formas-curva-logo-huerto-ibero.png) 16% 8%/7% no-repeat;
+}
+.interactive-map svg {
+  /* margin-top: -5vh; */
+  width: 60%;
+  height: 100vh;
+  /* margin-left: 5vw; */
+  /* -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-perspective: 1000px;
+          perspective: 1000px; */
+  position: relative;
+}
+.interactive-map .hotspot {
+  cursor: pointer;
+  padding: 20px;
+}
+.interactive-map .text-info {
+  background: #F2E4C5;
+ box-shadow: 1px 4px 8px #552103a6;
+  padding: 20px;
+	width: 40%;
+  min-width: 320px;
+  margin: auto;
+  border: 1px solid #F2E4C5;
+  position: absolute;
+	top: 3%;
+    left: 61%;
+  color: #313D03 !important;
+  border-radius: 0px 50px 0px 50px;
+  font-size: calc(13px + (20 - 13)*(100vw - 320px)/(1920 - 320));
+  font-family: 'Poppins', sans-serif;
+  /* display: none; */
+	z-index: 20;
+}
+.interactive-map .text-info-gral{
+  background: #F2E4C5;
+}
+/* .interactive-map .text-info.area-info-active {
+  display: block;
+} */
+.interactive-map .text-info table {
+  margin-top: 10px;
+}
+.interactive-map .text-info td:nth-of-type(odd) {
+  width: 25%;
+}
+.interactive-map .text-info td:nth-of-type(even) {
+  width: 25%;
+}
+.interactive-map .text-info .tablacamas col:first-child{
+  width: 33%;
+}
+.interactive-map .text-info .tablacamas col:nth-child(2){
+  width: 33%;
+}
+.interactive-map .text-info .tablacamas col:last-child{
+  width: 33%;
+}
+.interactive-map .text-info .tablacamas th, .interactive-map .text-info .tablainfogeneral th{
+  padding: 2.5% 0%;
+}
+.interactive-map .text-info .tablainfogeneral td:nth-of-type(odd){
+  color: #6E3D01;
+    font-size: 18px;
+    font-weight: bold;
+  text-align: center;
+}
+.interactive-map .text-info .tablacamas td:nth-of-type(odd), .interactive-map .text-info .tablacamas td:nth-of-type(even){
+  padding: 5% 0%;
+  text-align: center;
+}
+.interactive-map .text-info td:first-child {
+  font-weight: bold;
+}
+.interactive-map .text-info .tablacamas td:first-child {
+  font-weight: normal;
+}
+.interactive-map .text-info .tablacamas img{
+  max-width: 55%;
+}
+.interactive-map .text-info h2 {
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #93A603;
+}
+.interactive-map .text-info a:link, .interactive-map .text-info a:visited{
+  color: #6E3D01 !important;
+  text-decoration: underline;
+}
+.interactive-map .text-info a:hover
+{
+	color:#313D03 !important;
+}
+.interactive-map #close-map {
+  position: absolute;
+    width: 38px;
+    height: 41px;
+    left: 25rem;
+    top: .8rem;
+    cursor: pointer;
+    stroke-width: 2px;
+    stroke: #803a0b;
+    stroke-miterlimit: 0;
+	z-index: 21;
+}
+.zoom-map-area {
+  transform-origin: 0% 0%;
+  position: relative;
+}
+
+
+
+
+
+.circle-marker {
+  stroke: #87eb16; 
+  stroke-width: 4px;
+  stroke-opacity: 1;
+}
+.circle-fill {
+  fill: #F2F6ED;
+}
+
+.circle-pulse {
+  fill: #e0960d;
+  fill-opacity: 0;
+  transform-origin: 50% 50%;
+  transform-box: fill-box;
+  animation-duration: 2s;
+  animation-name: circle-pulsing;
+  animation-iteration-count: infinite;
+}
+
+.visible-on-zoom .circle-marker {
+  stroke: #ffe600; 
+  stroke-width: 4px;
+  stroke-opacity: 1;
+}
+.visible-on-zoom .circle-fill {
+  fill: #ffe600;
+}
+.visible-on-zoom .circle-pulse {
+  fill: #ffe600;
+}
+
+@keyframes circle-pulsing {
+  from {
+    stroke-width: 8px;
+    stroke-opacity: 1;
+    transform: scale(0.3);
+  }
+  to {
+    stroke-width: 0;
+    stroke-opacity: 0;
+    transform: scale(2);
+  }
+}
+
+
+/* .fill-me {
+  position: relative;
+  background-color: green;
+} */
+/* #area-one-zoom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+} */
+
+
+.visible-on-zoom {
+	visibility: hidden;
+}
+
+/*fin infografia*/
+
+
+.catalogo2 {
+  background: #E7EECE;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+	align-items: stretch;
+}
+.cataloogo2 article{
+	flex-basis: 33%;
+}
+.catalogo2 h4{
+	margin-top: 2%;
+  color: #6E3D01;
+    font-size: calc(22px + (25 - 22)*(100vw - 320px)/(1920 - 320));
+    font-family: 'Ubuntu', sans-serif;
+    font-style: normal;
+    text-align: left;
+}
+
+.catalogo2 p{
+ color: #313D03;
+    font-size: calc(16px + (22 - 16)*(100vw - 320px)/(1920 - 320));
+    font-family: 'Ubuntu', sans-serif;
+    font-style: normal;
+    text-align: left;
+}
+.catalogo2 a{
+  color: #6E3D01;
+}
+.catalogo2 article {
+	margin-bottom: 5%;
+  position: relative;
+	flex-basis: 90%;
+  }
+.catalogo2 article em{
+	color:#93A603;
+}
+.asidePrincipal {
+  padding: 0% 0% 0% 7%;
+  background: url(images/plantas_aside.svg) top -24% right 4%/ auto;
+  background-color: #3F533A;
+  display: grid;
+  grid-template-columns: 45% 45%;
+}
+ .art1 button{
+  height: 6%;
+  left: 60%;
+  margin-top: -12%;
+ }
+ .asidePrincipal h2, .asidePrincipal h3{
+  display: none;
+ }
+ aside p{
+  margin-bottom: 0%;
+ padding: 2.5% 5%;
+ }
+ aside li, aside p, aside a {
+  padding: 2% 5% 0% 5%;
+  color: #D6E5DA;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: normal;
+  font-size: calc(14px + (16 - 14)*(100vw - 320px)/(1920 - 320));
+  font-style: normal;
+  text-align: left;
+  list-style: none;
+}
+ .logos {
+  padding: 15% 5% 0% 5%;
+  display: grid;
+  grid-template-columns: repeat(2, 48%);
+  grid-template-rows: auto;
+  align-items: center;
+  justify-content: center;
+ }
+ .logos{
+  grid-column: 1/3;
+  grid-row: 1/2;
+ }
+ .logos:nth-child(3){
+ grid-column: 2/3;
+ grid-row: 1/2;
+ }
+ .menu2{
+  grid-column: 1/2;
+  grid-row: 2/3;
+ }
+ .redesSociales {
+  grid-column: 2/4;
+  grid-row: 2/3;
+ }
+ .desarrolladores {
+  grid-column: 1/3; grid-row: 4/5;
+ }
+ .direccion {
+  grid-column: 1/3;
+  grid-row: 5/6;
+  padding-bottom: 5vh;
+ }
+
+ .sitiosRec {
+  padding: 10% 5% 77% 5%;
+  background-color: #F2F6ED;
+  display: grid;
+  grid-template-columns: repeat(2, 45%);
+  grid-template-rows: 6% 10% repeat(6, 16%);
+  grid-column-gap: 7%;
+  grid-row-gap: 4%;
+  justify-content: center; align-items: center;
+ }
+ .sitiosRec h2{
+  grid-column: 1/4;
+  grid-row: 1/2;
+ }
+ .sitiosRec figure:nth-child(2) {
+  grid-column: 1/3;
+  grid-row: 2/3;
+  width: 44%;
+  height: 105%;
+  margin-left: 25%;
+ }
+ .sitiosRec figure:nth-child(3){
+  grid-column: 2/3;
+  grid-row: 3/4;
+ }
+ .sitiosRec figure:nth-child(4){
+  grid-column: 1/2;
+  grid-row: 4/5;
+ }
+ .sitiosRec figure:nth-child(5){
+  grid-column: 2/3;
+  grid-row: 4/5;
+ }
+ .sitiosRec figure:nth-child(6) {
+  grid-column: 1/2;
+  grid-row: 3/4;
+ }
+ .sitiosRec figure:nth-child(7){
+  grid-column: 2/3;
+  grid-row:5/6;
+ }
+ .sitiosRec figure:nth-child(8){
+  grid-column: 1/2;
+  grid-row: 6/7;
+ }
+ .sitiosRec figure:nth-child(9){
+  grid-column: 2/3;
+  grid-row: 6/7;
+ }
+ .sitiosRec figure:nth-child(10){
+  grid-column: 1/2;
+  grid-row: 7/8;
+ }
+ .sitiosRec figure:nth-child(11){
+  grid-column: 2/3;
+  grid-row: 7/8;
+ }
+ .sitiosRec figure:nth-child(12){
+  grid-column: 1/2;
+  grid-row: 8/9;
+ }
+ .sitiosRec figure:nth-child(13){ grid-column: 2/3;
+  grid-row: 8/9;
+ }
+ .sitiosRec figure:nth-child(14) {
+  grid-column: 1/2;
+  grid-row: 5/6;
+  width: 58%;
+  margin-left: 18%;
+ }
+
+a[href="https://www.instagram.com/?hl=es-la"]:link{  
+  width: 35px;
+  height: 35px;
+  text-indent: 45px;
+  display: block; background: url(images/icono_redes_sociales_instagram.png) left center/contain no-repeat;
+}
+a[href="https://twitter.com/?lang=es"]:link{ 
+  width: 35px;
+  height: 35px;
+  text-indent: 45px;
+  display:  block; background: url(images/icono_redes_sociales_twitter.png) left center/ contain no-repeat;}
+
+a[href="https://es-la.facebook.com/"]:link{ 
+  width: 35px;
+  height: 35px;
+  text-indent: 45px;
+  display:  block;background: url(images/icono_redes_sociales_facebook.png) left center/ contain no-repeat;}
+
+footer{
+  padding: 5% 5% 5% 5%;
+  line-height: 1.5; 
+  background-color: #2C4625;
+}
+footer p, footer a{
+  color: #D6E5DA;
+  font-size: calc(14px + (18 - 14)*(100vw - 320px)/(1920 - 320));
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: normal;
+  font-style:normal;
+  text-align: center;
+}
+@media screen and (max-width: 1960px){
+	.catalogo2 article {
+    flex-basis: 28%;
+	}
+}
+@media screen and (max-width: 1024px){
+ .interactive-map #close-map {
+    right: 1.2rem;
+  }
+}
+@media screen and (max-width: 812px){
+ .interactive-map #close-map {
+    width: 35px;
+    height: 35px;
+    right: 1rem;
+  }
+}
+@media screen and (max-width: 768px){
+  .interactive-map svg {
+    height: 41vh;
+  }
+  .interactive-map #close-map {
+    right: 0rem;
+  }
+}
+@media screen and (max-width: 736px){
+  .interactive-map svg {
+    height: 100vh;
+  }
+ .interactive-map .text-info {
+    left: 18%;
+  }
+  .interactive-map #close-map {
+    right: 1rem;
+  }
+	
+}
+
+@media screen and (min-width: 640px){
+
+}
+@media screen and (max-width: 640px){
+.interactive-map svg {
+    width: 100%;
+	}
+ .interactive-map .text-info {
+    left: 18%;
+  }
+	.catalogo2 article {
+    flex-basis: 28%;
+}
+  .catalogo2 h2 {
+  flex-basis: 100%;
+  margin-top: 5%;
+  margin-bottom: 3%;
+    
+}
+ 
+}
+@media screen and (max-width: 568px){
+.interactive-map .text-info {
+    left: 14%;
+	    top: 99%;
+	}
+	#area-nine-info+#close-map {
+    top: 12.2rem;
+	}
+}
+@media screen and (max-width: 414px){
+	.catalogo2 article {
+     flex-basis: 80%;
+    margin-bottom: 15%;
+	}
+  .interactive-map svg {
+    height: 55vh;
+  }
+.interactive-map .text-info {
+    left: -5%;
+  }
+	#area-nine-info, #area-eight-info, #area-seven-info, #area-six-info, #area-five-info, #area-four-info, #area-three-info, #area-two-info, #area-one-info{
+		top: 64%;
+	}
+	#area-nine-info+#close-map {
+    top: 21rem;
+    left: 77%;
+	}
+	.botonPequeno{
+		top:99%;
+	}
+}
+@media screen and (max-width: 390px){
+	#area-nine-info+#close-map {
+    top: 20rem;
+    left: 84%;
+	}
+}
+
+@media screen and (max-width: 375px){
+.interactive-map .text-info {
+    left: -12%;
+	top: 100%;
+  }
+  .interactive-map #close-map {
+    width: 30px;
+    height: 30px;
+    top: 24.2rem;
+    left: 14rem
+  }
+	#area-nine-info, #area-eight-info, #area-seven-info, #area-six-info, #area-five-info, #area-four-info, #area-three-info, #area-two-info, #area-one-info{
+		top: 56%;
+	}
+	#area-nine-info+#close-map {
+    top: 14.2rem;
+	}
+	.botonPequeno {
+		top: 95%;
+	}
+}
+
+@media screen and (max-width: 360px){
+  
+  .interactive-map{
+    background: url(images/fondo_catalogo_1.png) 0% 5%/100% no-repeat #F2F6ED;
+	padding-bottom: 80%;
+  }
+	.contenedorcamas{
+	position: relative;
+}
+  .interactive-map .text-info {
+    min-width: 300px;
+    left: -6%;
+	top: 102%;
+  }
+	#area-one-info, #area-two-info, #area-three-info, #area-four-info, #area-five-info, #area-six-info, #area-seven-info, #area-eight-info, #area-nine-info{
+		top: 49%;
+	}
+  .interactive-map #close-map {
+    top: 1.2rem;
+    left: 14rem;
+  }
+  #area-nine-info+#close-map {
+        top: 1.2rem;
+    left: 82%;
+	}
+.planta1, .planta2, .planta3, .planta4, .planta5 {
+  padding: 5%;
+  }
+ 
+  
+}
+@media screen and (max-width: 320px){
+  .interactive-map .text-info {
+    min-width: 300px;
+    left: -17%;
+  }
+  .interactive-map #close-map {
+    top: 1.2rem;
+    left: 13rem;
+  }
+}
+
+@media screen and (min-width: 320px){
+	.catalogo2{
+		position: relative;
+	}
+  .catalogo2 button {
+	  width: 42%;
+    position: absolute;
+     top:-71.5%;
+    left: 58%;
+}
+  
+}
+/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+@media screen and (min-width: 568px) {
+	.catalogo2 h2 {
+    background: url(images/formas-curva-logo-huerto-ibero.png) 36% 8%/4% no-repeat;
+	}
+ .catalogo2 button {
+    width: 72%;
+    position: absolute;
+    top: 27.5%;
+    left: 30%;
+}
+}
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+
+@media screen and (min-width: 768px){
+ 
+  header{
+    grid-template-rows: 80px 50px 5px 90px 50px;
+  }
+  
+.catalogo2 h2 {
+  margin-top: 8%;
+  margin-bottom: 3%;
+}
+  
+  .catalogo2 button{
+   padding: 2% 5%;
+    width: 71%;
+    height: 44px;
+    top: 29.5%;
+    left: 31.6%
+  }
+	.interactive-map .text-info{
+		    left: 53%;
+	}
+	#area-nine-info+#close-map {
+        left: 38rem;
+    top: 1.8rem;
+	}
+  aside{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: 25% 22% 27% ;
+    justify-content: space-around;
+  }
+  
+  .logosfigure:nth-child(2){
+    grid-column: 1/2;
+    grid-row: 1/2;
+    
+  }
+  .menu2{
+  padding: 10% 0% 0% 0%;
+    grid-column: 1/2;
+    grid-row: 2;
+    text-decoration: underline;
+  
+  }
+  .redesSociales{
+    grid-column: 2;
+    grid-row: 2/3;
+  }
+  .desarrolladores{
+  
+    grid-column: 2;
+    grid-row: 3/4;
+  }
+  .direccion{
+    padding: 0%;
+    grid-column: 1/4;
+    grid-row: 4;
+      line-height: 1.5; 
+  }
+  footer a{line-height: 2;
+    font-size: calc(14px + (18 - 14)*(100vw - 320px)/(1920 - 320));
+  }
+  .sitiosRec {
+    padding: 3% 6% 19% 6%;
+    display: grid;
+    grid-template-columns: repeat(3, 25%);
+    grid-template-rows: 16% 12% repeat(4, 21%);
+    grid-column-gap: 10%;
+    grid-row-gap: 4%;
+    justify-content: center;
+    align-items: center;
+  }
+  .sitiosRec h2{
+    grid-column: 1/4;
+    grid-row: 1/2;
+  }
+  
+  .sitiosRec figure:nth-child(2) {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    margin-left: 26%;
+    width: 40%;
+    height: auto;
+  }
+  .sitiosRec figure:nth-child(3) {
+    grid-column: 2/3;
+    grid-row: 3/4;
+    width: 65%;
+    margin-left: 11%;
+  }
+  .sitiosRec figure:nth-child(4) {
+    grid-column: 3/4;
+    grid-row: 3/4;
+    width: 48%;
+    margin-left: 20%;
+  }
+  .sitiosRec figure:nth-child(5) {
+    grid-column: 1/2;
+    grid-row: 4/5;
+    width: 55%;
+    margin-left: 10%;
+  }
+  .sitiosRec figure:nth-child(6) {
+    grid-column: 1/2;
+    grid-row: 3/4;
+    width: 60%;
+    margin-left: 10%;
+  }
+  .sitiosRec figure:nth-child(7) {
+    grid-column: 3/4;
+    grid-row: 4/5;
+    margin-left: 20%;
+    width: 44%;
+  }
+  .sitiosRec figure:nth-child(8) {
+    margin-left: 12%;
+    grid-column: 1/2;
+    grid-row: 5/6;
+    width: 55%;
+  }
+  .sitiosRec figure:nth-child(9) {
+    grid-column: 2/3;
+    grid-row: 5/6;
+    width: 65%;
+    margin-left: 16%;
+  }
+  .sitiosRec figure:nth-child(10) {
+    grid-column: 3/4;
+    grid-row: 5/6;
+  }
+  .sitiosRec figure:nth-child(11) {
+    grid-column: 1/2;
+    margin-left: 12%;
+    grid-row: 6/7;
+    width: 55%;
+  }
+  .sitiosRec figure:nth-child(12) {
+    grid-column: 2/3;
+    grid-row: 6/7;
+    width: 75%;
+    margin-left: 12%;
+  }
+  .sitiosRec figure:nth-child(13) {
+    grid-column: 3/4;
+    grid-row: 6/7;
+    width: 90%;
+    margin-left: -11%;
+  }
+  .sitiosRec figure:nth-child(14) {
+    grid-column: 2/3;
+    grid-row: 4/5;
+    margin-left: 34%;
+    width: 26%;
+  }
+  .asidePrincipal {
+    padding: 0% 0% 0% 4%;
+    /* background: url(images/plantas_aside.svg) top -24% right 4%/ auto; */
+    background-color: #3F533A;
+    display: grid;
+    grid-template-columns: 45% 45%;
+    grid-row-gap: 1vh;
+  }
+  aside li, aside p, aside a {
+    padding: 3% 5% 0% 7%;
+    color: #D6E5DA;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    text-align: left;
+    list-style: none;
+  }
+	.texto h2 {
+    background: url(images/formas-curva-logo-huerto-ibero.png) 12% 9%/4% no-repeat;
+	}
+	.catalogo2 h2 {
+    background: url(images/formas-curva-logo-huerto-ibero.png) 37% 8%/4% no-repeat;
+	}
+	.sitiosRec h2 {
+    background: url(images/formas-curva-logo-huerto-ibero.png) 29% 8%/4% no-repeat;
+}
+}
+
+
+@media screen and (min-width: 812px){
+  .interactive-map {
+    padding: 3rem 3rem 0rem 3rem;
+}
+	.interactive-map .text-info {
+		top: 26%;
+    left: 61%;
+}
+ .interactive-map #close-map {
+    width: 30px;
+	height: 40px;
+	left: 69rem;
+	top: 2rem;
+  }
+  #area-one-info, #area-two-info, #area-three-info, #area-four-info, #area-five-info, #area-six-info, #area-seven-info, #area-eight-info, #area-nine-info{
+		top: 26%;
+    left: 51%;
+	}
+	#area-nine-info+#close-map{
+		left: 39.2rem;
+    top: 20rem;
+	}
+  .catalogo2 button {
+   padding:2% 5%;
+  }
+  .topnav {
+    /* margin-top: 0%; */
+    /* padding-top: 0%; */
+    display: grid;
+    grid-template-columns: 20vh 19vh;
+    grid-template-rows: 17vh;
+    justify-content: center;
+    /* padding-bottom: 24vh; */
+}  
+.topnav.responsive {
+  padding: 0% -2%;
+  position: relative;
+  margin-top: -55%;
+}
+  
+}
+@media screen and (min-width: 1024px){
+  
+  
+  .frase{
+    padding: 0% 0% 0% 0%;
+    grid-row: 5;
+  }
+ 
+  .texto {
+  grid-column: 1/3;
+  grid-row: 1/2;
+  margin-bottom: 7%;
+  }
+
+.catalogo2 {
+  text-align: center;
+  }
+  
+  .catalogo2 h4{
+    margin-top: 2%;
+  }
+  
+.catalogo2 h2 {
+  margin-top: 6%;
+}
+
+.botonPequeno{
+    font-size: calc(13px + (17 - 13)*(100vw - 320px)/(1920 - 320));
+   }
+  
+   .catalogo2 button {
+		width: 43.5%;
+		height: 42px;
+		top:39%;
+		left: 56.6%;
+	}
+	.interactive-map {
+    padding: 3rem 3rem 0rem;
+}
+
+  .interactive-map .text-info {
+    left: 62%;
+	}
+	#area-nine-info+#close-map {
+    left: 49rem;
+    top: 13.8rem;
+	}
+  .asidePrincipal {
+    font-size: calc(14px + (18 - 14)*(100vw - 320px)/(1920 - 320));
+    padding: 3.5% 4% 0% 4%;
+    grid-template-columns: repeat(4,23%);
+    grid-template-rows: 56%;
+    justify-content: space-around;
+    align-content: start;
+  }
+  aside li, aside p, aside a {
+    padding: 3.5% 5% 0% 7%;
+    color: #D6E5DA;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    text-align: left;
+    list-style: none;
+  }
+  .logos{
+    padding: 0% 0% 0% 0%;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    grid-template-columns: 100%;
+    grid-template-rows: 65%;
+  }
+	.logos figure{
+		width:45%;
+	}
+  .menu2{
+    padding: 0% 0% 0% 0%;
+    grid-column: 2;
+    grid-row: 1/2;
+  }
+  .redesSociales{
+    padding: 0% 0% 0% 0%;
+    grid-column: 3;
+    grid-row: 1/2;
+  }
+  .desarrolladores {
+    padding: 0% 0% 0% 0%;
+    grid-column: 4;
+    grid-row: 1/2;
+  }
+  .direccion {
+    padding: 5% 0% 0% 0%;
+    grid-column: 1/5;
+    grid-row: 2/2;
+  }
+  .direccion p{
+    padding: 3% 0% 0% 0%;
+    font-size: calc(11px + (14 - 11)*(100vw - 320px)/(1920 - 320));
+  }
+   footer {
+    padding: 1vh 0vh 1vh 0vh;
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    /* grid-template-rows: 26%; */
+    justify-content: center;
+    align-content: center;
+   }
+   footer :nth-child(1){
+    grid-column: 1;
+   }
+   footer:nth-child(2){
+    grid-column: 2;
+   }
+   footer :nth-child(3) {
+    grid-column: 3;
+    margin-top: 4vh;
+   }
+	.texto h2 {
+    background:url(images/formas-curva-logo-huerto-ibero.png) 21% 9%/3.5% no-repeat;
+	}
+	.catalogo2 h2 {
+    background: url(images/formas-curva-logo-huerto-ibero.png) 40% 0%/3.5% no-repeat;
+	}
+	.sitiosRec h2 {
+    background: url(images/formas-curva-logo-huerto-ibero.png) 33.5% 8%/3.5% no-repeat;
+	}
+}
+@media screen and (min-width: 1025px){
+	header {
+    padding-bottom: 0%;
+}
+	.interactive-map .text-info {
+    	top: 0%;
+		left: 62%;
+	}
+	#area-one-info, #area-two-info, #area-three-info, #area-four-info, #area-five-info, #area-six-info, #area-seven-info, #area-eight-info, #area-nine-info{
+		left: 38.2rem;
+    	top: 0rem;
+	}
+	#area-nine-info+#close-map{
+		left: 64.2rem;
+    	top: 1rem;
+	}
+	.texto h2 {
+    background: url(images/formas-curva-logo-huerto-ibero.png) 0% 9%/5% no-repeat;
+    max-width: 600px;
+    margin: 2% auto;
+		padding-left: 15px;
+		    font-size: 26px;
+		text-align: left;
+	}
+	.catalogo2 h2 {
+    background: url(images/formas-curva-logo-huerto-ibero.png) 41% 0%/3% no-repeat;
+	}
+	.sitiosRec h2 {
+    background: url(images/formas-curva-logo-huerto-ibero.png) 35.5% 8%/3% no-repeat;
+	}
+	.catalogo2 button{
+    top: 47.5%;
+	}
+    
+}
