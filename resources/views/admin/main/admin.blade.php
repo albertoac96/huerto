@@ -25,7 +25,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
      <!-- jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="{{ asset('styles/jquery.min.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -35,8 +35,8 @@
 
   
 
-   <link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" rel="stylesheet"  type="text/css">
-    <link href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css" rel="stylesheet"  type="text/css">
+   <link href="{{ asset('styles/dataTables.bootstrap5.css') }}" rel="stylesheet"  type="text/css">
+    <link href="{{ asset('styles/responsive.bootstrap5.css') }}" rel="stylesheet"  type="text/css">
 
   <!-- Mis estilos -->
      <link href="{{ asset('styles/sitio/estilos.css') }}" rel="stylesheet"  type="text/css">
@@ -46,24 +46,14 @@
 
     <!-- DataTables JS -->
 
-       <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-      <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
-       <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
-        <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap5.js"></script>
+       <script src="{{ asset('styles/dataTables.js') }}"></script>
+      <script src="{{ asset('styles/dataTables.bootstrap5.js') }}"></script>
+       <script src="{{ asset('styles/dataTables.responsive.js') }}"></script>
+        <script src="{{ asset('styles/responsive.bootstrap5.js') }}"></script>
 
 
     <!-- Bootstrap JS (incluye Popper JS) -->
     <script src="{{ asset('styles/bootstrap.bundle.js') }}"></script>
-
-    
-      
-    
-  
- 
-
-    
-   
-    
 
          <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

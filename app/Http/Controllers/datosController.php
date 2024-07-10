@@ -51,12 +51,23 @@ class datosController extends Controller
         $noticias = Noticia::where('cEstatus','A')
         ->get();
 
+         // Define las variables para las metaetiquetas
+         $metaTags = [
+            'title' => "Huerto IBERO",
+            'description' => "El Huerto Ibero surge como una iniciativa del Departamento de Arquitectura, Urbanismo e Ingeniería Civil, así mismo forma parte de los colaboradores del Instituto de Investigación Aplicada y Tecnología (InIAT) encargado de promover el bienestar a través de la transformación tecnológica.",
+            'url' => route('inicio'),
+            'image' => asset('images/redes_huerto.png'),
+            'image_alt' => "huerto_ibero",
+        ];
+
+
         $data = [
             'eventos'=>$eventos,
             'biografia'=>$biografias,
             'proyectos'=>$proyectos,
             'sitiosrel'=>$this->sitiosrel,
-            'noticias'=>$noticias
+            'noticias'=>$noticias,
+            'metaTags' => $metaTags
         ];
         return view("sitio.inicio.inicio")->with($data);
     }
@@ -67,9 +78,18 @@ class datosController extends Controller
         //$colaboradores = User::where('cEstatus','A')->get();  
         $colaboradores = DB::table('usuarios')->where('cEstatus', 'A')->where('iPublic', 1)->get(); 
 
+        $metaTags = [
+            'title' => "Acerca del Huerto",
+            'description' => "El Huerto Ibero busca ser un referente en investigación sobre el impacto socioeconómico, en salud y en el medio ambiente que tiene un espacio verde productivo dentro de una institución académica.",
+            'url' => route('acercaDe'),
+            'image' => asset('images/redes_huerto.png'),
+            'image_alt' => "huerto_ibero",
+        ];
+
         $data = [
             'colaboradores'=>$colaboradores,
-            'sitiosrel'=>$this->sitiosrel
+            'sitiosrel'=>$this->sitiosrel,
+            'metaTags' => $metaTags
         ];
         return view("sitio.acercade.acerca")->with($data);
     }
@@ -80,11 +100,19 @@ class datosController extends Controller
         ->orderBy('dInicio', 'desc')
         ->paginate(6); 
         $sitiosrel = $this->sitiosrel;
+        $metaTags = [
+            'title' => "Proyectos del Huerto",
+            'description' => "Se realiza investigación inter y transdisciplinar que aporta a la educación ambiental en temas de agricultura urbana y la mejora de procesos productivos de cultivos urbanos con el acompañamiento de tecnología.",
+            'url' => route('showProyectos'),
+            'image' => asset('images/redes_huerto.png'),
+            'image_alt' => "huerto_ibero",
+        ];
         $data = [
             'proyectos'=>$proyectos,
-            'sitiosrel'=>$this->sitiosrel
+            'sitiosrel'=>$this->sitiosrel,
+            'metaTags' => $metaTags
         ];
-        return view('sitio.proyecto.proyectos', compact('proyectos', 'sitiosrel'));
+        return view('sitio.proyecto.proyectos', compact('proyectos', 'sitiosrel', 'metaTags'));
         //return view("sitio.proyecto.proyectos")->with($data);
     }
 
@@ -95,9 +123,18 @@ class datosController extends Controller
         ->where('T1.idProyecto', '=', $id)
         ->get();
 
+        $metaTags = [
+            'title' => $LcResp[0]->cNombre,
+            'description' => $LcResp[0]->cDescripcion,
+            'url' => route('verProyecto', $id),
+            'image' => asset('images/content/proyectos/' . $LcResp[0]->idProyecto . ".webp"),
+            'image_alt' => "huerto_ibero",
+        ];
+
         $data = [
             'proyecto'=>$LcResp[0],
-            'sitiosrel'=>$this->sitiosrel
+            'sitiosrel'=>$this->sitiosrel,
+            'metaTags' => $metaTags
         ];
 
         return view("sitio.proyecto.verProyecto")->with($data);
@@ -107,9 +144,18 @@ class datosController extends Controller
         $LcResp = Planta::where('idPlanta', '=', $id)
         ->get();
 
+        $metaTags = [
+            'title' => $LcResp[0]->cNombre,
+            'description' => $LcResp[0]->cDescripcion,
+            'url' => route('verPlanta', $id),
+            'image' => asset('images/content/catalogo/' . $LcResp[0]->idPlanta . ".webp"),
+            'image_alt' => "huerto_ibero",
+        ];
+
         $data = [
             'planta'=>$LcResp[0],
-            'sitiosrel'=>$this->sitiosrel
+            'sitiosrel'=>$this->sitiosrel,
+            'metaTags' => $metaTags
         ];
 
         return view("sitio.catalogo.verPlanta")->with($data);
@@ -162,13 +208,22 @@ class datosController extends Controller
         ->get();
 
         $mapa = Contenedor::where('cEstatus', 'A')->get();
+
+        $metaTags = [
+            'title' => "Cátalogo de plantas",
+            'description' => "Explora las diferentes plantas que tenemos en el huerto",
+            'url' => route('showCatalogo'),
+            'image' => asset('images/redes_huerto.png'),
+            'image_alt' => "huerto_ibero",
+        ];
     
        
         $data = [
             'plantas'=>$plantas,
             'contenedores'=>$contenedores,    
             'sitiosrel'=>$this->sitiosrel,
-            'mapa'=>$mapa
+            'mapa'=>$mapa,
+            'metaTags'=>$metaTags,
         ];
         
         return view("sitio.catalogo.verCatalogo")->with($data);
@@ -208,7 +263,14 @@ class datosController extends Controller
         ->orderBy('dEvento', 'desc')
         ->paginate(6); 
         $sitiosrel = $this->sitiosrel;
-        return view('sitio.eventos.verEventos', compact('eventos', 'sitiosrel'));
+        $metaTags = [
+            'title' => "Eventos del huerto",
+            'description' => "Explora las diferentes eventos en los que ha participado el huerto",
+            'url' => route('showEventos'),
+            'image' => asset('images/redes_huerto.png'),
+            'image_alt' => "huerto_ibero",
+        ];
+        return view('sitio.eventos.verEventos', compact('eventos', 'sitiosrel', 'metaTags'));
     }
 
     public function verNoticias(){
@@ -216,7 +278,14 @@ class datosController extends Controller
         ->orderBy('created_at', 'desc')
         ->paginate(6); 
         $sitiosrel = $this->sitiosrel;
-        return view('sitio.noticias.noticias', compact('noticias', 'sitiosrel'));
+        $metaTags = [
+            'title' => "Noticias del huerto",
+            'description' => "Explora las diferentes noticias sobre los trabajos en el huerto",
+            'url' => route('showNoticias'),
+            'image' => asset('images/redes_huerto.png'),
+            'image_alt' => "huerto_ibero",
+        ];
+        return view('sitio.noticias.noticias', compact('noticias', 'sitiosrel', 'metaTags'));
     }
 
     //FUNCIONES ACTIVIDADES
@@ -225,11 +294,18 @@ class datosController extends Controller
         ->orderBy('dActividad', 'desc')
         ->paginate(6); 
         $sitiosrel = $this->sitiosrel;
+        $metaTags = [
+            'title' => "Actividades del huerto",
+            'description' => "Explora las diferentes actividades que el huerto te ofrece",
+            'url' => route('showActividades'),
+            'image' => asset('images/redes_huerto.png'),
+            'image_alt' => "huerto_ibero",
+        ];
         $data = [
             'actividades'=>$actividades,
             'sitiosrel'=>$this->sitiosrel
               ];
-        return view('sitio.actividad.actividades', compact('actividades', 'sitiosrel'));
+        return view('sitio.actividad.actividades', compact('actividades', 'sitiosrel', 'metaTags'));
         //return view("sitio.actividad.actividades")->with($data);
 
     }
@@ -244,20 +320,36 @@ class datosController extends Controller
         ->orderBy('created_at', 'desc')
         ->paginate(3);  
         $sitiosrel = $this->sitiosrel;
+        $metaTags = [
+            'title' => "Cursos y talleres del huerto",
+            'description' => "Explora las diferentes cursos y talleres que el huerto te ofrece",
+            'url' => route('showCapacitacion'),
+            'image' => asset('images/redes_huerto.png'),
+            'image_alt' => "huerto_ibero",
+        ];
         $data = [
             'capacitaciones'=>$capacitaciones,
             'tutoriales'=>$tutoriales,
             'sitiosrel'=>$this->sitiosrel
               ];
         
-        return view('sitio.capacitaciones.verCapacitaciones', compact('capacitaciones', 'tutoriales', 'sitiosrel'));
+        return view('sitio.capacitaciones.verCapacitaciones', compact('capacitaciones', 'tutoriales', 'sitiosrel', 'metaTags'));
         return view("sitio.capacitaciones.verCapacitaciones")->with($data);
     }
 
     public function Contacto(){
-        $data = [
-            'sitiosrel'=>$this->sitiosrel
-              ];
+       
+              $metaTags = [
+                'title' => "Contacta al huerto",
+                'description' => "Ponte en contacto con el Huerto IBERO, CDMX.",
+                'url' => route('showContactos'),
+                'image' => asset('images/redes_huerto.png'),
+                'image_alt' => "huerto_ibero",
+            ];
+            $data = [
+                'sitiosrel'=>$this->sitiosrel,
+                'metaTags'=>$metaTags
+                  ];
         return view("sitio.tutorial.contacto")->with($data);
     }
 

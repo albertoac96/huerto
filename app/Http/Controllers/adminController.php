@@ -1231,6 +1231,7 @@ class adminController extends Controller
             'idUsrAlta' => Auth::id(),
             'dNacimiento' => $request->fecha,
             'cLink' => $request->link,
+            'cSemestre' => $request->semestre
         ]);
         User::create([
             'name' => $request->nombre . " " . $request->apellido,
@@ -1280,6 +1281,7 @@ class adminController extends Controller
             'iPublic' => $public,
             'dNacimiento' => $request->fecha,
             'cLink' => $request->link,
+            'cSemestre' => $request->semestre
         ]);
         User::where('id', $request->idUsuario)->update([
             'name' => $request->nombre . " " . $request->apellido,

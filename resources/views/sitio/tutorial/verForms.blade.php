@@ -102,8 +102,8 @@
                         <!-- Segunda fila primera columna -->
                         <div class="col-12">
                             <!-- Aquí va el mapa -->
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3764.2293027133983!2d-99.27534252478753!3d19.359221481904598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d200cbd3e03319%3A0x18d7ce05811ec62f!2sProl.%20P.%C2%BA%20de%20la%20Reforma%20880%2C%20Lomas%20de%20Santa%20Fe%2C%20Contadero%2C%20Cuajimalpa%20de%20Morelos%2C%2005348%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1696219180425!5m2!1ses-419!2smx" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3161.594084835443!2d-99.26295232256649!3d19.37177141576139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d201aa7747afeb%3A0x1ba053d8c73db3fe!2sIbero%20Puerta%205!5e0!3m2!1ses-419!2smx!4v1720578448127!5m2!1ses-419!2smx" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                           
 
                         </div>
                     </div>

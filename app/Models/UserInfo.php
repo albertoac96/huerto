@@ -28,6 +28,7 @@ class UserInfo extends Model
         'iPublic',
         'idUsrAlta',
         'dNacimiento',
-        'cLink'
+        'cLink',
+        'cSemestre'
     ];
 }

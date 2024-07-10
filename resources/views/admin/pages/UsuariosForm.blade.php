@@ -63,10 +63,19 @@
                     <option value="2" @if($item->idUsuario>0 && $item->tipo=='2') selected @endif>Editor</option>   
                 </select>
                 </div>
+
+
                 <div class="mb-3 col-6">
                     <label for="cActvidad" class="form-label">Titulo Ibero</label>
                     <input type="text" class="form-control" name="esco" value="@if($item->idUsuario>0) {{$item->escolaridad}} @endif" >
                 </div>
+
+                  <div class="mb-3 col-6">
+                    <label for="cSemestre" class="form-label">Semestre</label>
+                    <input type="text" class="form-control" name="semestre" value="@if($item->idUsuario>0) {{$item->cSemestre}} @endif" >
+                </div>
+
+
                 <div class="mb-3 col-6">
                     <label for="cActvidad" class="form-label">Discapacidad</label>
                     <input type="text" class="form-control" name="dis" value="@if($item->idUsuario>0) {{$item->discapacidad}} @endif" >
@@ -103,7 +112,7 @@
 
                 <div class="mb-3 col-12">
                 <label for="cLink" class="form-label">Link relacionado</label>
-                <input type="text" class="form-control" name="link" value="@if($item->idUsuario>0) {{$item->cLink}} @endif" required>
+                <input type="text" class="form-control" name="link" value="@if($item->idUsuario>0) {{$item->cLink}} @endif">
                 </div>
             </div>
 

@@ -1,4 +1,7 @@
 
+  <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-3a1d7b0c-9b68-4139-b770-a827cad77d5d" data-elfsight-app-lazy></div>
+
 <div class="container-fluid" style="background-color: #3F533A;">
     <div class="row" style="padding: 7em;">
        <div class="col-12 col-sm-12 col-md-4" style="color: #FFFFFF">
@@ -17,8 +20,8 @@
               <li><a style="color: #FFFFFF" href="proyectos" target="_self">Proyectos</a></li>
               <li><a style="color: #FFFFFF" href="actividades" target="_self">Actividades</a></li>
               <li><a style="color: #FFFFFF" href="capacitacion" target="_self" >Capacitación</a></li>
-               <li><a style="color: #FFFFFF" href="capacitacion" target="_self" >Noticias</a></li>
-                <li><a style="color: #FFFFFF" href="capacitacion" target="_self" >Eventos</a></li>
+               <li><a style="color: #FFFFFF" href="noticias" target="_self" >Noticias</a></li>
+                <li><a style="color: #FFFFFF" href="eventos" target="_self" >Eventos</a></li>
               <li><a style="color: #FFFFFF" href="contacto" target="_self">Contacto</a></li>
           </ul>
         
@@ -45,6 +48,9 @@
       </div>
   
   </div>
+
+
+
 
 
   <div class="container-fluid text-center pt-2 pb-2" style="background-color: #2C4625;color: #FFFFFF">

@@ -18,6 +18,7 @@
                 <th>Telefono</th>
                 <th>Edad</th>
                 <th>Comunidad Ibero</th>
+                <th>Semestre</th>
                 <th>Tipo</th>
                 <th>Estatus</th>
                 <th>Registrado el</th>
@@ -36,6 +37,7 @@
                     <td class="fs-6 fw-lighter text-start">{{$item->telefono}}</td>
                     <td class="fs-6 fw-lighter text-start">{{$item->edad}}</td>
                     <td class="fs-6 fw-lighter text-start">{{$item->comunidadIbero}}</td>
+                    <td class="fs-6 fw-lighter text-start">{{$item->cSemestre}}</td>
                     <td class="fs-6 fw-lighter text-start">
                         @if($item->tipo==1)
                             Administrador

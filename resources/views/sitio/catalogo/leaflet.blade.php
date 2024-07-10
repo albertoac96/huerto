@@ -36,7 +36,7 @@
 
 
  @section('estilos')
- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+ <link rel="stylesheet" href="{{ asset('styles/leaflet.css') }}" />
  <style>
      #mapa {
          height: 600px;
@@ -110,7 +110,7 @@
  @endsection
 
  @section('js')
- <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+ <script src="{{ asset('styles/leaflet.js') }}"></script>
 
  <script>
      document.addEventListener('DOMContentLoaded', function() {

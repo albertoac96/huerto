@@ -8,7 +8,7 @@
     <input type="text" id="searchInput" class="form-control" placeholder="Buscar plantas..." onkeyup="filterCards()">
 </div>
 
-        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-4">
+        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-4">
 
         @foreach ($plantas as $planta)
             <div class="col mt-3 planta-card" data-name="{{ strtolower($planta->cNombre) }}">

@@ -4,6 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+     @yield('meta')
+         <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Huerto IBERO">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+        <!-- Metaetiquetas de Pinterest -->
+    <meta name="pinterest-rich-pin" content="true">
+    <meta property="og:type" content="article">
+        <meta name="keywords" content="huerto, ibero, universidad, jardin, tierra">
+            <meta name="twitter:card" content="summary_large_image">
+
      {!! htmlScriptTagJsApi(['lang' => 'es']) !!}
 
      <meta name="google-site-verification" content="qf_OU3fxoh8Ue1FIqfbeCfIXZtzjaJbl8dQEnCXc75I" />
@@ -23,25 +35,25 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-  <link href="../styles/bootstrap.css" rel="stylesheet"  type="text/css">
-    <link href="../styles/sitio/estilos.css" rel="stylesheet"  type="text/css">
+  <link href="{{ asset('styles/bootstrap.css') }}" rel="stylesheet"  type="text/css">
+    <link href="{{ asset('styles/sitio/estilos.css') }}" rel="stylesheet"  type="text/css">
 
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link rel="stylesheet" href="{{ asset('styles/font-awesome.min.css') }}">
 
      <!-- Importa la fuente de Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&display=swap">
 
 
   
-    <script src="../styles/bootstrap.bundle.js"></script>
+    <script src="{{ asset('styles/bootstrap.bundle.js') }}"></script>
 
-     <script language="javascript" src="../styles/scripts1.js"></script>
-<link rel="stylesheet" href="../styles/estilosCatalogo.css">
+     <script language="javascript" src="{{ asset('styles/scripts1.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('styles/estilosCatalogo.css') }}">
 
 <script src="https://kit.fontawesome.com/e31d27d23f.js" crossorigin="anonymous"></script>
 

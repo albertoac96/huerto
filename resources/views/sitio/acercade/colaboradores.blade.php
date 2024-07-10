@@ -19,14 +19,17 @@
                                 <img src="{{ asset('images/content/colaboradores/' . $item->idUsuario . '.webp') }}" 
                                 style="border:0;border-top-left-radius:3em;border-bottom-right-radius:3em;object-fit: cover;">
                             </div>
-                           
+                            @if($item->cLink != "" || $item->cLink != null)
                                 <div class="card-img-overlay">
+                               
                                 <button class="botonPequeno position-absolute bottom-0 end-0" type="button"
-                                onclick="javascript:window.open('{{ $item->cLink }}', '_blank');">¡Conoce más!</button></div>
+                                onclick="javascript:window.open('{{ $item->cLink }}', '_blank');">¡Conoce más!</button>
+                                </div>
+                                @endif
                           
                         </div>
                         <div class="card-body">
-                            <label class="card-title">{{$item->nombre}} {{$item->apellido}}</label><br>
+                            <label class="card-title"><b>{{$item->nombre}} {{$item->apellido}}</b></label><br>
                             <label class="card-text">{{$item->escolaridad}}</label><br>
                             
                                 <label class="card-text">{{$item->comunidadIbero}}</label><br>
