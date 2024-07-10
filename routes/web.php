@@ -41,14 +41,12 @@ Route::get('/contactook', [App\Http\Controllers\datosController::class, 'Contact
 Route::get('/admin', [App\Http\Controllers\adminController::class, 'entrarAdmin'])->name('admin.inicio');
 
 
-Route::get('/login', function () {
-    return view('admin.login');
-});
+Route::post('/login', [App\Http\Controllers\adminController::class, 'iniciaSesion'])->name('login');
 
 Route::get('/mwkft6yt3AkEqft7Wu9jQegN9ARiKx', [App\Http\Controllers\adminController::class, 'verjson'])->name('verjson');
 
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'login' => false]);
 
 
 

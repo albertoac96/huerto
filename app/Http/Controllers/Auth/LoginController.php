@@ -52,19 +52,8 @@ class LoginController extends Controller
 
         $recaptcha_response = $request->input('g-recaptcha-response');
 
-        
-    
-        // Lógica de inicio de sesión aquí
-        $estatus = DB::select("select cEstatus from h_usuarios where email = '".$user->email."'");
-    
-        if ($estatus[0]->cEstatus !== 'A') {
-            Auth::logout();
-            return redirect('/admin')->withErrors(['status' => 'Su cuenta está inactiva.']);
-        } else {
-
-            
-            // Verifica si la respuesta del reCAPTCHA está presente
-        if ($recaptcha_response === "") {
+         // Verifica si la respuesta del reCAPTCHA está presente
+         if ($recaptcha_response === "") {
             return redirect()->back()->with('status', 'Completa el reCaptcha para iniciar sesión');
         }
 
@@ -76,10 +65,23 @@ class LoginController extends Controller
         if (!$response['success']) {
             return redirect()->back()->with('status', 'La verificación del reCaptcha falló. Inténtalo de nuevo.');
         }
-        }
+        
     
-        // Si el usuario está activo, continúa con el inicio de sesión
+       
+    
+        // Lógica de inicio de sesión aquí
+        $estatus = DB::select("select cEstatus from h_usuarios where email = '".$user->email."'");
+    
+        if ($estatus[0]->cEstatus !== 'A') {
+            Auth::logout();
+            return redirect('/admin')->withErrors(['status' => 'Su cuenta está inactiva.']);
+        } 
+
+         // Si el usuario está activo, continúa con el inicio de sesión
         //return redirect()->intended($this->redirectPath());
+
+            
+           
     }
 
     /**

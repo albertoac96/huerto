@@ -68,21 +68,24 @@
                  <div class="col-12 m-4">
 
 
+ 
+   
 
-               
+@if (session('status'))
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+  <div>
+    {{ session('status') }}
+  </div>
+</div>
+@endif            
 
                 <div class="col-12">
                     <!-- Google Recaptcha -->
                 {!! htmlFormSnippet() !!}
 
-                 @if (session('status'))
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{ session('status') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-@endif
+            
+
 
 
                     <button type="submit" class="btn btn-success btn-lg btn-block">
