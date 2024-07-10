@@ -72,8 +72,18 @@
                                             <textarea class="form-control" name="msj" rows="4" placeholder="Por favor ingrese su mensaje" required></textarea>
                                         </div>
 
-                                         <!-- Google Recaptcha -->
-                                         <div class="g-recaptcha mt-4" data-sitekey={{config('services.recaptcha.key')}}></div>
+                                       
+                                         {!! htmlFormSnippet() !!}
+
+                                         @if (session('status'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ session('status') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
 
                                         <div class="col-12">
 

@@ -211,7 +211,7 @@
       .fixedInicio{
         background: url(../../images/background_proyecto_.png)top/ auto no-repeat;
         min-height: 300px;
-        background-size: 100% auto;
+        background-size: cover;
        
       }
 

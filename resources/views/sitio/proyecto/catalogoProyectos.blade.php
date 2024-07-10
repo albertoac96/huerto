@@ -26,4 +26,10 @@
         @endforeach  
 
      </div>
+
+      <div class="d-flex justify-content-center mt-3">
+          <!-- Paginación para Capacitaciones -->
+{{ $proyectos->links('vendor.pagination.bootstrap-5') }}
+
+</div>
  </div>

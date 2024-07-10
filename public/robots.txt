@@ -1,2 +1,9 @@
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /login/
+Disallow: /register/
+Disallow: /password/
+Disallow: /email/
+Allow: /
+
+Sitemap: https://huerto.ibero.mx/sitemap.xml

@@ -14,7 +14,7 @@
         <div class="row row-cols-6 align-middle">
            
         @foreach ($sitiosrel as $item)
-            <div class="col p-3">
+            <div class="col-4 col-md-4 col-lg-2 p-3">
             <a href="{{$item->cURL}}" target="_blank">
             <img class="imagen" src="{{asset('images/logos').'/'.$item->cImg}}" style="height: auto; max-height: 150px;  max-width: 100%; vertical-align: middle; position: relative; top: 50%; transform: translateY(-50%);">
             </a>

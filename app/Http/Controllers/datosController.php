@@ -17,6 +17,7 @@ use App\Models\Experimento;
 use App\Models\Planta;
 use App\Models\Actividad;
 use App\Models\Capacitacion;
+use App\Models\ContenedorTipo;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FormContacto;
@@ -75,12 +76,16 @@ class datosController extends Controller
 
     //FUNCIONES DE PROYECTOS
     public function verProyectos(){
-        $proyectos = Proyecto::where('cEstatus', 'A')->get();
+        $proyectos = Proyecto::where('cEstatus', 'A')
+        ->orderBy('dInicio', 'desc')
+        ->paginate(6); 
+        $sitiosrel = $this->sitiosrel;
         $data = [
             'proyectos'=>$proyectos,
             'sitiosrel'=>$this->sitiosrel
         ];
-        return view("sitio.proyecto.proyectos")->with($data);
+        return view('sitio.proyecto.proyectos', compact('proyectos', 'sitiosrel'));
+        //return view("sitio.proyecto.proyectos")->with($data);
     }
 
     public function verProyecto($id){
@@ -146,12 +151,24 @@ class datosController extends Controller
         ->orderBy('cNombre')
         ->get();
 
+        $contenedores = ContenedorTipo::select(
+            'contenedores_tipos.idTipo',
+            'contenedores_tipos.cNombre as cContenedor',
+            DB::raw('COUNT(h_contenedores.idContenedor) as contenedoresTotal')
+        )
+        ->leftJoin('contenedores', 'contenedores_tipos.idTipo', '=', 'contenedores.idTipo')
+        ->where('contenedores.cEstatus', 'A')
+        ->groupBy('contenedores_tipos.idTipo', 'contenedores_tipos.cNombre')
+        ->get();
 
+        $mapa = Contenedor::where('cEstatus', 'A')->get();
+    
+       
         $data = [
             'plantas'=>$plantas,
-            //'camas'=>$camas,    
-            'sitiosrel'=>$this->sitiosrel
-            
+            'contenedores'=>$contenedores,    
+            'sitiosrel'=>$this->sitiosrel,
+            'mapa'=>$mapa
         ];
         
         return view("sitio.catalogo.verCatalogo")->with($data);
@@ -163,6 +180,7 @@ class datosController extends Controller
         ->from('contenedores as T1')
         ->leftJoin('experimentos as T2', 'T1.idExperimento', '=', 'T2.idExperimento')
         ->where('T1.idContenedor', $id)
+        ->where('T2.cEstatus', 'A')
         ->get();
 
         $user = Contenedor::select('contenedores.*', 'usuarios.*')
@@ -174,6 +192,7 @@ class datosController extends Controller
         ->from('plantas as T1')
         ->leftJoin('relPlantaContenedor as T2', 'T1.idPlanta', '=', 'T2.idPlanta')
         ->where('T2.idContenedor', $id)
+        ->where('T2.cEstatus', 'A')
         ->orderBy('T1.cNombre')
         ->get();
 
@@ -184,31 +203,54 @@ class datosController extends Controller
         ]);
     }
 
+    public function verEventos(){
+        $eventos = Evento::where('cEstatus', 'A')
+        ->orderBy('dEvento', 'desc')
+        ->paginate(6); 
+        $sitiosrel = $this->sitiosrel;
+        return view('sitio.eventos.verEventos', compact('eventos', 'sitiosrel'));
+    }
+
+    public function verNoticias(){
+        $noticias = Noticia::where('cEstatus', 'A')
+        ->orderBy('created_at', 'desc')
+        ->paginate(6); 
+        $sitiosrel = $this->sitiosrel;
+        return view('sitio.noticias.noticias', compact('noticias', 'sitiosrel'));
+    }
+
     //FUNCIONES ACTIVIDADES
     public function verActividades(){
         $actividades = Actividad::where('cEstatus', 'A')
-        ->get();
-      
+        ->orderBy('dActividad', 'desc')
+        ->paginate(6); 
+        $sitiosrel = $this->sitiosrel;
         $data = [
             'actividades'=>$actividades,
             'sitiosrel'=>$this->sitiosrel
               ];
-        return view("sitio.actividad.actividades")->with($data);
+        return view('sitio.actividad.actividades', compact('actividades', 'sitiosrel'));
+        //return view("sitio.actividad.actividades")->with($data);
 
     }
         //FUNCIONES CAPACITACION
     public function verCapacitacion(){
         $capacitaciones = Capacitacion::where('cEstatus', 'A')
         ->where('cTipo', '!=', 'tutorial')
-        ->get();
+        ->orderBy('created_at', 'desc')
+        ->paginate(3);  
         $tutoriales = Capacitacion::where('cEstatus', 'A')
         ->where('cTipo', 'tutorial')
-        ->get();
+        ->orderBy('created_at', 'desc')
+        ->paginate(3);  
+        $sitiosrel = $this->sitiosrel;
         $data = [
             'capacitaciones'=>$capacitaciones,
             'tutoriales'=>$tutoriales,
             'sitiosrel'=>$this->sitiosrel
               ];
+        
+        return view('sitio.capacitaciones.verCapacitaciones', compact('capacitaciones', 'tutoriales', 'sitiosrel'));
         return view("sitio.capacitaciones.verCapacitaciones")->with($data);
     }
 
@@ -223,12 +265,13 @@ class datosController extends Controller
         $recaptcha_response = $request->input('g-recaptcha-response');
 
         if (is_null($recaptcha_response) || $recaptcha_response="") {
-            return redirect()->back()->with('status', 'Please Complete the Recaptcha to proceed');
+            
+            return redirect()->back()->with('status', 'Completa el reCaptcha para enviar el formulario');
         }
 
 
-        Mail::to("huertoibero@gmail.com")->send(new FormContacto($request));
-        //Mail::to("huertourbano@ibero.mx")->send(new FormContacto($request));
+        //Mail::to("huertoibero@gmail.com")->send(new FormContacto($request));
+        Mail::to("huertourbano@ibero.mx")->send(new FormContacto($request));
        
         return redirect()->route('ContactoOK');
     }

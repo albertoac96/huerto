@@ -11,12 +11,20 @@ class relPlantaContenedor extends Model
     
     protected $table = 'relPlantaContenedor';
     protected $primaryKey = 'idRel';
-    const UPDATED_AT = null;
+    #const UPDATED_AT = null;
     #const CREATED_AT = null;
     protected $fillable = [
         'idPlanta',
         'idContenedor',
         'idUsrAlta',
-        'cEstatus'
+        'cEstatus',
+        'idExperimento',
+        'cNota'
     ];
+
+    // Define la relación con BitacoraPlanta
+    public function bitacoras()
+    {
+        return $this->hasMany(Bitacora::class, 'idrelPlantaContenedor', 'idRel');
+    }
 }

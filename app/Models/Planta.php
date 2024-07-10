@@ -16,6 +16,7 @@ class Planta extends Model
     protected $fillable = [
         'cNombre',
         'cNombreLatin',
+        'cOtrosNombres',
         'cEspecie',
         'cDescripcion',
         'cOrigen',
@@ -28,6 +29,29 @@ class Planta extends Model
         'iPerenne',
         'cEstatus',
         'idUsrAlta',
-        'cExt'
+        'cExt',
+        'grupo',
+        'cicloDeVida',
+        'crecimiento',
+        'familia',
+        'zSiembra',
+        'tipoSuelo',
+        'humSuelo',
+        'phSuelo',
+        'profRaiz',
+        'fijNitro',
+        'tGerminacion',
+        'firstCosecha',
+        'cicloCosecha',
+        'altura',
+        'ancho',
+        'distPlantas',
+        'tempSiembra',
+        'tempCosecha',
+        'dimHojas',
+        'tRiego',
+        'cIluminacion',
+        'tempMax',
+        'tempMin'
     ];
 }

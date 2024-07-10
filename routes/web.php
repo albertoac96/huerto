@@ -24,6 +24,8 @@ Route::get('/proyectos', [App\Http\Controllers\datosController::class, 'verProye
 Route::get('/actividades', [App\Http\Controllers\datosController::class, 'verActividades'])->name('showActividades');
 Route::get('/capacitacion', [App\Http\Controllers\datosController::class, 'verCapacitacion'])->name('showCapacitacion');
 Route::get('/contacto', [App\Http\Controllers\datosController::class, 'Contacto'])->name('showContactos');
+Route::get('/eventos', [App\Http\Controllers\datosController::class, 'verEventos'])->name('showEventos');
+Route::get('/noticias', [App\Http\Controllers\datosController::class, 'verNoticias'])->name('showNoticias');
 //RUTAS DE SITIO CON VARIABLES
 Route::get('/proyecto/{id}', [App\Http\Controllers\datosController::class, 'verProyecto'])->name('verProyecto');
 
@@ -36,18 +38,14 @@ Route::get('/contactook', [App\Http\Controllers\datosController::class, 'Contact
 
 
 
+Route::get('/admin', [App\Http\Controllers\adminController::class, 'entrarAdmin'])->name('admin.inicio');
 
-Route::get('/admin', function () {
-    $idUser = Auth::id();
-    if($idUser == ""){
-        return view('admin.login');
-    }
-    return view('admin.inicio');
-})->name('admin.inicio');
 
 Route::get('/login', function () {
     return view('admin.login');
 });
+
+Route::get('/mwkft6yt3AkEqft7Wu9jQegN9ARiKx', [App\Http\Controllers\adminController::class, 'verjson'])->name('verjson');
 
 
 Auth::routes(['register' => false]);
@@ -59,9 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/traerRol', [App\Http\Controllers\adminController::class, 'showRol'])->name('traeRol');
 
     Route::group(['prefix' => 'admin'], function(){
-        Route::get('login', function () {
-            return view('admin.inicio');
-        });
+      
         
         Route::group(['prefix' => 'act'], function(){
             Route::get('/show', [App\Http\Controllers\adminController::class, 'showActividades'])->name('actividades');
@@ -133,6 +129,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/delete/{id}', [App\Http\Controllers\adminController::class, 'delPlantas'])->name('delPlanta');
             Route::post('/create', [App\Http\Controllers\adminController::class, 'creaPlantas'])->name('creaPlanta');
             Route::post('/update', [App\Http\Controllers\adminController::class, 'upPlantas'])->name('upPlanta');
+            Route::get('/search', [App\Http\Controllers\adminController::class, 'autocompletePlantas'])->name('autocomplete.plantas');
+            Route::get('/info/{id}', [App\Http\Controllers\adminController::class, 'infoPlanta'])->name('infoPlanta');
         });
 
         Route::group(['prefix' => 'semillas'], function(){
@@ -149,11 +147,32 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/delete/{id}', [App\Http\Controllers\adminController::class, 'delContenedores'])->name('delCont');
             Route::post('/create', [App\Http\Controllers\adminController::class, 'creaContenedores'])->name('creaCont');
             Route::post('/update', [App\Http\Controllers\adminController::class, 'upContenedores'])->name('upCont');
+
+            Route::group(['prefix' => 'tipos'], function(){
+                Route::get('/show', [App\Http\Controllers\adminController::class, 'showContenedoresTipos'])->name('contenedores.tipos');
+                Route::post('/update', [App\Http\Controllers\adminController::class, 'upContenedoresTipos'])->name('upCont.tipos');
+                Route::get('/delete/{id}', [App\Http\Controllers\adminController::class, 'delContenedoresTipos'])->name('delCont.tipos');
+                Route::post('/create', [App\Http\Controllers\adminController::class, 'creaContenedoresTipos'])->name('creaCont.tipos');
+                Route::get('/form/{id}', [App\Http\Controllers\adminController::class, 'formContenedoresTipo'])->name('formCont.tipos');
+            });
+
+            Route::group(['prefix' => 'bitacora'], function(){
+                Route::get('/show/{idPlanta}', [App\Http\Controllers\adminController::class, 'showBitacora'])->name('contenedores.bit');
+                Route::post('/update', [App\Http\Controllers\adminController::class, 'upBitacora'])->name('upCont.bit');
+                Route::get('/delete/{id}', [App\Http\Controllers\adminController::class, 'delBitacora'])->name('delCont.bit');
+                Route::get('/baja/{id}/{estatus}', [App\Http\Controllers\adminController::class, 'estatusBitacora'])->name('estCont.bit');
+                Route::post('/create', [App\Http\Controllers\adminController::class, 'creaBitacora'])->name('creaCont.bit');
+                Route::get('/form/{id}/{idRel}', [App\Http\Controllers\adminController::class, 'formBitacora'])->name('formCont.bit');
+                Route::get('/imgs/{id}', [App\Http\Controllers\adminController::class, 'verImagenesBitacora'])->name('verImg.bit');
+                Route::post('/uploadimg', [App\Http\Controllers\adminController::class, 'subirImagenBitacora'])->name('subirImg.bit');
+                Route::get('/delimg/{id}', [App\Http\Controllers\adminController::class, 'delImagenBitacora'])->name('delImg.bit');
+            });
             
             Route::group(['prefix' => 'plantas'], function(){
                 Route::get('/show/{id}', [App\Http\Controllers\adminController::class, 'showContenedoresPlantas'])->name('contenedores.plantas');
-                Route::get('/form/{id}', [App\Http\Controllers\adminController::class, 'formContenedoresPlantas'])->name('formCont.plantas');
+                Route::get('/form/{id}/{idRel}', [App\Http\Controllers\adminController::class, 'formContenedoresPlantas'])->name('formCont.plantas');
                 Route::get('/delete/{id}/{conte}', [App\Http\Controllers\adminController::class, 'delContenedoresPlantas'])->name('delCont.plantas');
+                Route::get('/baja/{id}/{conte}/{estatus}', [App\Http\Controllers\adminController::class, 'bajaContenedoresPlantas'])->name('bajaCont.plantas');
                 Route::post('/create', [App\Http\Controllers\adminController::class, 'creaContenedoresPlantas'])->name('creaCont.plantas');
             });
         });

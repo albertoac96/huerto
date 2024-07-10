@@ -6,11 +6,15 @@
    
 
    <div class="seccionTipo2 pt-4">
+   <button type="button" class="btn btn-primary btn-lg">
+   <i class="fa fa-arrow-left" aria-hidden="true"></i>
+   </button>
         <h2>ACTIVIDADES</h2>
+
         @if($idActividad>0)
-        <form method="post" action="{{route('creaActividad')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('creaActividad')}}" onsubmit="showOverlay()" id="f1" enctype="multipart/form-data">
         @else
-        <form method="post" action="{{route('upActividad')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('upActividad')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @endif
             <?php
                 if($id > 0){

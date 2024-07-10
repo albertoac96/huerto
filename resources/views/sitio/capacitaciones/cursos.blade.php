@@ -8,6 +8,8 @@
     </h2>
 
     <div class="row row-cols-1 row-cols-md-3 container-fluid">
+
+ 
     @foreach($capacitaciones as $curso)
         <div class="col mt-3">
             <div class="card h-100" style="border-top-left-radius:3em;border-bottom-right-radius:2em; background-color: #F2E4C5; border: 0px">
@@ -33,14 +35,25 @@
                     <h5 class="card-title">{{ $curso->cCapacitacion }}</h5>
                     <label><i>{{ $curso->cLugar }}</i></label><br>
                     <label><b>Tipo: </b>{{ $curso->cTipo }}</label><br>
-                    <label><b>Fecha: </b>{{$curso->dCapacitacion }}</label><br>
+                    <label><b>Fecha: </b>{{$FechaCorta($curso->dCapacitacion)}}</label><br>
                     <label class="m-3" style="text-align: justify;">{{ $curso->cDescripcion }}</label>
                 </div>
             </div>
         </div>
         @endforeach
+
+           
     </div>
+    <div class="d-flex justify-content-center mt-3">
+          <!-- Paginación para Capacitaciones -->
+{{ $capacitaciones->links('vendor.pagination.bootstrap-5') }}
+
 </div>
+</div>
+
+
+
+
 
 
  

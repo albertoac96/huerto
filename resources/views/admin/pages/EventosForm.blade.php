@@ -9,9 +9,9 @@
         <h2>EVENTOS</h2>
        
         @if($item->idEvento==0)
-        <form method="post" action="{{route('creaEvento')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('creaEvento')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @else
-        <form method="post" action="{{route('upEvento')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('upEvento')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @endif
          @csrf
 

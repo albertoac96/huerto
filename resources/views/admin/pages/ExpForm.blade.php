@@ -9,9 +9,9 @@
         <h2>EXPERIMENTO</h2>
        
         @if($item->idExperimento==0)
-        <form method="post" action="{{route('creaExp')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('creaExp')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @else
-        <form method="post" action="{{route('upExp')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('upExp')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @endif
          @csrf
 

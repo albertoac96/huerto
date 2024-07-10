@@ -34,7 +34,7 @@
             <li><a class="dropdown-item" href="{{route('experimentos')}}">Experimentos</a></li>
             <li><a class="dropdown-item" href="{{route('plantas')}}">Plantas</a></li>
             <li><a class="dropdown-item" href="{{route('semillas')}}">Semillas</a></li>
-            <li><a class="dropdown-item" href="{{route('contenedores')}}">Infografía</a></li>
+            <li><a class="dropdown-item" href="{{route('contenedores')}}">Contenedores</a></li>
           </ul>
         </li>
 
@@ -44,7 +44,14 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{route('usuarios')}}">Usuarios</a></li>
+       
+            <li><a class="dropdown-item" href="https://www.google.com/u/3/recaptcha/admin/site/691049981" target="_blank">Google reCAPTCHA</a></li>
+        
+            <li><a class="dropdown-item" href="https://analytics.google.com/analytics/web/provision/?authuser=3#/p449574324/reports/intelligenthome" target="_blank">Google Analytics</a></li>
+      
+            <li><a class="dropdown-item" href="https://search.google.com/u/3/search-console/welcome" target="_blank">Google Search Console</a></li>
           </ul>
+          
         </li>
 
 

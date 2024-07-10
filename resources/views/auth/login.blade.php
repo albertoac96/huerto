@@ -12,22 +12,25 @@
         <meta name="viewport" content="width=devicee-width, initial-scale=1">
         <meta compatibilidad IE=edge>
         <link rel="stylesheet" href="../styles/admin/estilosIngreso.css">
+         <link href="../styles/bootstrap.css" rel="stylesheet"  type="text/css">
+    <script src="../styles/bootstrap.bundle.js"></script>
 </head>
 <body>
 <header>
     <h1>HUERTO IBERO</h1>
     <figure>
-            <img src="../images/fondo/tabletlogologind.png" alt="dcas.">
+            <img src="{{asset('images/fondo/tabletlogologind.png')}}">
         </figure>
     <p>Bienvenido/a al administrador del Huerto IBERO</p>
 </header>
     <section>
         <h2>Título del formulario</h2>
-            <form class="formulario" method="post" action="login_xt.php">
-                <fieldset>
-                <legend>Ingresa tus datos</legend>
-               <label for="nombre">Nombre:</label>
-               <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+            <form class="formulario" method="POST" action="{{ route('login') }}">
+             @csrf
+                <fieldset class="m-5 pt-3">
+                <legend><label>Ingresa tus datos</label></legend>
+               <label for="nombre">Correo:</label>
+               <input id="email" type="email" class="form-control campo @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                   @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -36,9 +39,8 @@
                     <br>
                     <br>
                 <label for="password">Contraseña:</label>
-                 <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
+                
+                            
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
@@ -46,9 +48,9 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                          
 
-                             <div class="col-md-6 offset-md-4">
+                           
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -56,26 +58,22 @@
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
-                            </div>
 
+                          
+                      
                 </fieldset>
-                <br>
-                <br>
-                            
-                        <br>
-                       <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+              
+                        <div class="col-12 m-4">
+                                <button type="submit" class="btn btn-success btn-lg btn-block">
                                     {{ __('Login') }}
                                 </button>
-
+<br>
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
                             </div>
-                        </div>
              
             </form>
     </section>

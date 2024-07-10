@@ -23,6 +23,7 @@ class Proyecto extends Model
         'idUsrAlta',
         'cEstatus',
         'dInicio',
+        'dFin',
         'cExt'
 
     ];

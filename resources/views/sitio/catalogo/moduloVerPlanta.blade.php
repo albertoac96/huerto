@@ -12,8 +12,9 @@
             <!-- Cabecera con título y nombre científico, más imagen -->
             <div class="row mb-3 align-items-center">
                 <div class="col-md-9">
-                    <h1 class="pageTitle">{{ $planta->cNombre }}</h1>
-                    <h6 class="categorySubtitle" id="nombreCientifico">{{ $planta->cNombreLatin }}</h6>
+                    <h1 class="pageTitle" id="cNombre">{{ $planta->cNombre }}</h1>
+                    <h6 class="categorySubtitle" id="cNombreLatin">{{ $planta->cNombreLatin }}</h6>
+                    <h6 class="categorySubtitle" id="cOtrosNombres">{{ $planta->cOtrosNombres }}</h6>
                 </div>
                 <div class="col-md-3 text-center">
                     <img id="imagen" class="rounded-circle mx-auto" style="height: 150px; width: 150px; object-fit: cover; border: 1px solid #7b9783;" src="{{ asset('images/content/catalogo/'.$planta->idPlanta.'.webp') }}">
@@ -202,26 +203,26 @@
           
                 <div class="col-md-6">
                     <h5 class="categoryTitle">Mejor temporada para sembrar</h5>
-                   <div class="row">
+                   <div class="row justify-content-evenly">
                          @php
                             $temporadas = explode(",",$planta->tempSiembra);
                          
                             @endphp
                         
                              <div class="estacion col-3">
-                                <i class="fas fa-seedling fa-3x m-1" style="color: {{ in_array('Primavera', $temporadas) ? '#1FAD44' : '#ccc' }};"></i>
+                                <i class="fas fa-seedling fa-3x m-1" style="color: {{ in_array('primavera', $temporadas) ? '#1FAD44' : '#ccc' }};"></i>
                                 <div>Primavera</div>
                             </div>
                             <div class="estacion col-3">
-                                <i class="fas fa-sun fa-3x m-1" style="color: {{ in_array('Verano', $temporadas) ? '#CC761A' : '#ccc' }};"></i>
+                                <i class="fas fa-sun fa-3x m-1" style="color: {{ in_array('verano', $temporadas) ? '#CC761A' : '#ccc' }};"></i>
                                 <div>Verano</div>
                             </div>
                             <div class="estacion col-3">
-                                <i class="fas fa-leaf fa-3x m-1" style="color: {{ in_array('Otoño', $temporadas) ? '#ffcc00' : '#ccc' }};"></i>
+                                <i class="fas fa-leaf fa-3x m-1" style="color: {{ in_array('otoño', $temporadas) ? '#ffcc00' : '#ccc' }};"></i>
                                 <div>Otoño</div>
                             </div>
                             <div class="estacion col-3">
-                                <i class="fas fa-snowflake fa-3x m-1" style="color: {{ in_array('Invierno', $temporadas) ? '#1AA4CC' : '#ccc' }};"></i>
+                                <i class="fas fa-snowflake fa-3x m-1" style="color: {{ in_array('invierno', $temporadas) ? '#1AA4CC' : '#ccc' }};"></i>
                                 <div>Invierno</div>
                             </div>
                          
@@ -231,26 +232,26 @@
                 </div>
                 <div class="col-md-6">
                     <h5 class="categoryTitle">Mejor temporada para cosechar</h5>
-                    <div class="row">
+                    <div class="row justify-content-evenly">
                          @php
                             $temporadas = explode(",",$planta->tempCosecha);
                          
                             @endphp
                         
-                             <div class="estacion col-3">
-                                <i class="fas fa-seedling fa-3x m-1" style="color: {{ in_array('Primavera', $temporadas) ? '#1FAD44' : '#ccc' }};"></i>
+                             <div class="estacion col-2 text-center">
+                                <i class="fas fa-seedling fa-3x m-1" style="color: {{ in_array('primavera', $temporadas) ? '#1FAD44' : '#ccc' }};"></i>
                                 <div>Primavera</div>
                             </div>
-                            <div class="estacion col-3">
-                                <i class="fas fa-sun fa-3x m-1" style="color: {{ in_array('Verano', $temporadas) ? '#CC761A' : '#ccc' }};"></i>
+                            <div class="estacion col-2 text-center">
+                                <i class="fas fa-sun fa-3x m-1" style="color: {{ in_array('verano', $temporadas) ? '#CC761A' : '#ccc' }};"></i>
                                 <div>Verano</div>
                             </div>
-                            <div class="estacion col-3">
-                                <i class="fas fa-leaf fa-3x m-1" style="color: {{ in_array('Otoño', $temporadas) ? '#ffcc00' : '#ccc' }};"></i>
+                            <div class="estacion col-2 text-center">
+                                <i class="fas fa-leaf fa-3x m-1" style="color: {{ in_array('otoño', $temporadas) ? '#ffcc00' : '#ccc' }};"></i>
                                 <div>Otoño</div>
                             </div>
-                            <div class="estacion col-3">
-                                <i class="fas fa-snowflake fa-3x m-1" style="color: {{ in_array('Invierno', $temporadas) ? '#1AA4CC' : '#ccc' }};"></i>
+                            <div class="estacion col-2 text-center mr-4">
+                                <i class="fas fa-snowflake fa-3x m-1" style="color: {{ in_array('invierno', $temporadas) ? '#1AA4CC' : '#ccc' }};"></i>
                                 <div>Invierno</div>
                             </div>
                          

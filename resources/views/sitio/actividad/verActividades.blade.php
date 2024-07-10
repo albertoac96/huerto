@@ -22,7 +22,7 @@
                     <div class="card-body">
                     
                         <div class="img-container mb-3">
-                        <img src="{{asset('images/content/actividades').'/'.$item->idActividad . '.webp' }}" class="img-fluid rounded-start" alt="...">
+                        <img src="{{asset('images/content/actividades').'/'.$item->idActividad . '.webp' }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover;">
                         </div>
                         @if($item->cLink)
                             <div class="card-img-overlay">
@@ -32,7 +32,7 @@
                         <h5 class="card-title">{{$item->cActividad}}</h5>
                         <label><i>{{$item->cLugar}}</i></label><br>
                         <label><b>Fecha: </b>
-                        {{$item->dActividad}}</label><br>
+                        {{$FechaCorta($item->dActividad)}}</label><br>
                         <label style="text-align: justify;">{{$item->cDescripcion}}</label>
                     </div>
                 </div>
@@ -43,6 +43,12 @@
 
 
          </div>
+
+           <div class="d-flex justify-content-center mt-3">
+          <!-- Paginación para Capacitaciones -->
+{{ $actividades->links('vendor.pagination.bootstrap-5') }}
+
+</div>
      
 
 

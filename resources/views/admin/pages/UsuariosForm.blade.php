@@ -9,9 +9,9 @@
         <h2>USUARIOS</h2>
 
         @if($item->idUsuario==0)
-        <form method="post" action="{{route('creaUser')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('creaUser')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @else
-        <form method="post" action="{{route('upUser')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('upUser')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @endif
          @csrf
 

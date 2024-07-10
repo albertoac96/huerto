@@ -20,7 +20,7 @@
                     @endif
                 </div>
                 <div class="card-body">
-                    <label class="subtitulo mt-3">{{ $evento->dEvento }} </label><br>
+                    <label class="mt-3"><b>{{ $FechaCorta($evento->dEvento) }} </b></label><br>
                     <label class="texttitle mt-3">{{ $evento->cEvento  }}</label><br>
 
                     <p class="textcard text-truncate">{{ $evento->cDescripcion }} </p>
@@ -30,5 +30,8 @@
 
 
         </div>
+      
+        <a href="{{ route('showEventos') }}" class="btn botonPequeno">Ver más eventos</a>
+
     </div>
 </div>

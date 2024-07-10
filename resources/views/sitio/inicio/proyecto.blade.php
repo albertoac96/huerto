@@ -23,6 +23,8 @@
             </div>
         @endforeach
         </div>
+
+          <a href="{{ route('showProyectos') }}" class="btn botonPequeno">Ver más proyectos</a>
     </div>
 </div>
 

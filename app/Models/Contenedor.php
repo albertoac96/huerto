@@ -20,6 +20,15 @@ class Contenedor extends Model
         'cEstatus',
         'cExt',
         'idExperimento',
-        'idEncargado'
+        'idEncargado',
+        'idTipo',
+        'cNota',
+        'cUbicacion'
     ];
+
+     // Define la relación con plantas
+     public function plantasTotal()
+     {
+         return $this->hasMany(relPlantaContenedor::class, 'idContenedor', 'idContenedor');
+     }
 }

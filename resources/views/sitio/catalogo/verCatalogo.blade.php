@@ -2,8 +2,11 @@
 
 @section('content')
        
-    @include("sitio.catalogo.infografia",['data' => 'data'])
-  
+   
+
+     
+   @include("sitio.catalogo.leaflet",['data.contenedores' => 'contenedores', 'data.mapa' => 'mapa'])
+
    @include("sitio.catalogo.paleta",['data.plantas' => 'plantas'])
 
 
@@ -12,4 +15,9 @@
    
 
 @endsection
+
+
+
+
+
 

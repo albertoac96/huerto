@@ -17,8 +17,18 @@
     <script src="../styles/bootstrap.bundle.js"></script>
      <script src="../sitio/catalogo/infografia/infografia.js"></script>
 
-      @vite('resources/js/app.js')
-    @vite('resources/css/app.css')
+  
+
+
+     <link rel="stylesheet" href="../styles/libraries/owlcarrusel/dist/owl.carousel.min.css">
+
+     <script src="../styles/libraries/owlcarrusel/dist/owl.carrusel.min.js"></script>
+
+     @yield('js')
+
+
+      @yield('estilos')
+
 </head>
 <body>
     <div id="app">
@@ -78,3 +88,5 @@
     </div>
 </body>
 </html>
+
+

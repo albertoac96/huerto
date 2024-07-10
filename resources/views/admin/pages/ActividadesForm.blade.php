@@ -3,15 +3,17 @@
 @section('content')
 
 <div class="secClara pt-4">
-   
-
+ 
    <div class="seccionTipo2 pt-4">
+  
+   
+  
         <h2>ACTIVIDADES</h2>
-       
+      
         @if($item->idActividad==0)
-        <form method="post" action="{{route('creaActividad')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('creaActividad')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @else
-        <form method="post" action="{{route('upActividad')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('upActividad')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @endif
          @csrf
 

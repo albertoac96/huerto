@@ -3,6 +3,12 @@
     <a class="navbar-brand" href="{{ route('inicio') }}">
       <img src="../images/logos/icono_huerto-ibero_desktop.svg" alt="Bootstrap" width="300" height="200">
     </a>
+     <!-- Botón de colapsar para dispositivos móviles -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav" style="text-align:center;">
         <li class="nav-item ms-2">

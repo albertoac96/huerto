@@ -29,11 +29,25 @@
                         <h5 class="card-title">{{ $tutorial->cCapacitacion }}</h5>
                         <label><i>{{ $tutorial->cLugar }}</i></label><br>
                         <label><b>Tipo: </b>{{ $tutorial->cTipo }}</label><br>
-                        <label><b>Fecha: </b>{{ $tutorial->dCapacitacion }}</label><br>
+                        <label><b>Fecha: </b>{{ $FechaCorta($tutorial->dCapacitacion)}}</label><br>
                         <label class="m-3" style="text-align: justify;">{{ $tutorial->cDescripcion }}</label>
                     </div>
                 </div>
             </div>
         @endforeach
+
+    
+
     </div>
+
+  
+
+
+<div class="d-flex justify-content-center">
+          <!-- Paginación para Capacitaciones -->
+{{ $tutoriales->links('vendor.pagination.bootstrap-5') }}
+
 </div>
+
+</div>
+

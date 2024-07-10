@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\DB; //consulta a db
 use Illuminate\Support\Facades\Auth;//identificar usuario
+use Illuminate\Support\Facades\File;
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Response;
+
 
 use App\Models\Evento;
 use App\Models\Biografia;
@@ -21,13 +27,58 @@ use App\Models\Huerto;
 use App\Models\Semilla;
 use App\Models\User;
 use App\Models\UserInfo;
+use App\Models\ContenedorTipo;
+use App\Models\Bitacora;
+use App\Models\BitacoraImagen;
+use App\Models\relPlantaContenedor;
 use SplFileInfo;
+use Exception;
 
 class adminController extends Controller
 {
     public function showRol(){
         $rol = DB::select("select tipo from h_usuarios where email = '".Auth::user()->email."'");
         return $rol[0]->tipo;
+    }
+
+    public function verjson(){
+        $path = 'reporte.json'; // El nombre del archivo en el storage
+        if (!Storage::disk('local')->exists($path)) {
+            return response()->json(['error' => 'Archivo no encontrado'], 404);
+        }
+        $content = Storage::disk('local')->get($path);
+        $type = Storage::disk('local')->mimeType($path);
+        return response($content, 200)->header('Content-Type', $type);
+    }
+
+    public function entrarAdmin(){
+
+        $idUser = Auth::id();
+        if($idUser == ""){
+            return view('admin.login');
+        }
+        
+        $data = DB::select("select T1.*, T3.idContenedor, IFNULL(T3.cNombre, 'Sin contenedor') as cContenedor, 
+        IFNULL(T3.cTipo, 'Sin tipo') as cTipo, T4.idExperimento, IFNULL(T4.cExperimento, 'Sin experimento') as cExperimento,
+        T4.nExperimento, T4.dinicio, T4.dFin, T5.idProyecto, IFNULL(T5.cNombre, 'Sin Proyecto') as cProyecto, 
+        IFNULL(T6.name, 'Sin usuario') as cUsuario from
+        h_plantas as T1
+        left join h_relPlantaContenedor as T2 on T1.idPlanta = T2.idPlanta
+        left join h_contenedores as T3 on T3.idContenedor = T2.idContenedor
+        left join h_contenedores_tipos as T7 on T3.idTipo = T7.idTipo
+        left join h_experimentos as T4 on T2.idExperimento = T4.idExperimento
+        left join h_proyectos as T5 on T4.idProyecto = T5.idProyecto
+        left join h_users as T6 on T6.id = T2.idUsrAlta
+        where T1.cEstatus = 'A'");
+
+                // Convertir los datos a JSON
+        $jsonData = json_encode($data);
+
+        // Guardar el JSON en storage en lugar de public
+        Storage::disk('local')->put('reporte.json', $jsonData);
+
+        return view('admin.inicio');
+        
     }
     
     public function showActividades(){
@@ -58,8 +109,6 @@ class adminController extends Controller
          //VARIABLES DE ARCHIVO ADJUNTO
          $cArchivo = $_FILES["archivo"]["name"];
          $ext = $this->verExtension($cArchivo);
-   
-
          //CREA LA ACTIVIDAD
          $item = Actividad::create([
             'cActividad' => $request->nombre,
@@ -139,7 +188,7 @@ class adminController extends Controller
         if($_FILES["archivo"]["name"]){
             $cArchivo = $_FILES["archivo"]["name"];
             $ext = $this->verExtension($cArchivo);
-            $this->subeFoto($_FILES["archivo"],"capacitaciones",$request->idCapacitacion);
+            $subeFoto = $this->subeFoto($_FILES["archivo"],"capacitaciones",$request->idCapacitacion);
             Capacitacion::where('idCapacitacion', $request->idCapacitacion)->update(['cExt' => $ext]);
         }
         $item = Capacitacion::where('idCapacitacion', $request->idCapacitacion)->update([
@@ -151,6 +200,8 @@ class adminController extends Controller
            'cTipo' => $request->tipo,
            'cMultimedia' => $request->multimedia
          ]);
+
+         
          return redirect()->route('capacitaciones');
     }
 
@@ -403,7 +454,8 @@ class adminController extends Controller
            'cIncidencia' => $request->inci,
            'idHuerto' => $request->huerto,
            'idResponsable' => $request->res,
-           'dInicio' => $request->fecha,
+           'dInicio' => $request->inicio,
+           'dFin' => $request->fin,
            'idUsrAlta' => Auth::id(),
            'cExt' => $ext
         ]);
@@ -424,7 +476,8 @@ class adminController extends Controller
             'cIncidencia' => $request->inci,
             'idHuerto' => $request->huerto,
             'idResponsable' => $request->res,
-            'dInicio' => $request->fecha
+            'dInicio' => $request->inicio,
+           'dFin' => $request->fin,
          ]);
          return redirect()->route('proyectos');
     }
@@ -486,7 +539,9 @@ class adminController extends Controller
 
 
     public function showPlantas(){
-        $items = Planta::where('cEstatus', 'A')
+        $items = Planta::select('plantas.*', 'users.name')
+        ->leftJoin('users', 'plantas.idUsrAlta', 'users.id')
+        ->where('cEstatus', 'A')
         ->orderBy('idPlanta')
         ->get();
         return view ('admin/pages/PlantasShow')->with(['items'=>$items]);
@@ -503,42 +558,97 @@ class adminController extends Controller
         Planta::where('idPlanta', $id)->update(['cEstatus' => 'B']);
         return redirect()->route('plantas');
     }
+    public function autocompletePlantas(Request $request){
+        $query = $request->query;
+        $field = $request->field; // 'nombre' o 'ciudad'
+        $results = Planta::where($field, 'LIKE', '%' . $query . '%')->get();
+        return response()->json($results);
+    }
+    public function infoPlanta($id){
+        $items = relPlantaContenedor::select('relPlantaContenedor.*', 'T2.cNombre', 
+        'T3.cNombre as contenedor', 'T4.cNombre as tipoc', 'T6.name as creador', 'T7.cExperimento')
+        ->leftJoin('plantas as T2', 'T2.idPlanta', 'relPlantaContenedor.idPlanta')
+        ->leftJoin('contenedores as T3', 'relPlantaContenedor.idContenedor', 'T3.idContenedor')
+        ->leftJoin('contenedores_tipos as T4', 'T3.idTipo', 'T4.idTipo')
+        ->leftJoin('users as T6', 'relPlantaContenedor.idUsrAlta', 'T6.id')
+        ->leftJoin('experimentos as T7', 'T7.idExperimento', 'relPlantaContenedor.idExperimento')
+        ->where('T3.cEstatus', 'A')
+        ->where('relPlantaContenedor.idPlanta', $id)
+        ->withCount('bitacoras')
+        ->orderBy('relPlantaContenedor.idRel')
+        ->get();
+        return $items;
+    }
+
+    private function handleSeasons($request, $fields) {
+        $result = "";
+        $seasons = [
+            'prim' => 'primavera, ',
+            'ver'  => 'verano, ',
+            'oto'  => 'otoño, ',
+            'invi' => 'invierno, '
+        ];
+
+        foreach ($seasons as $suffix => $season) {
+            $field = $fields . $suffix;
+            if ($request->$field != "") {
+                $result .= $season;
+            }
+        }
+
+        return rtrim($result, ', ');
+    }
     public function creaPlantas(Request $request){
         $cArchivo = $_FILES["archivo"]["name"];
         $ext = $this->verExtension($cArchivo);
-        if($request->comestible != ""){
-            $comestible = 1;
-        } else {
-            $comestible = 0;
-        }
-        if($request->endemica != ""){
-            $endemica = 1;
-        } else {
-            $endemica = 0;
-        }
-        if($request->medicinal != ""){
-            $medicinal = 1;
-        }else{
-            $medicinal = 0;
-        }
-        if($request->perene != ""){
-            $perene = 1;
-        }else{
-            $perene = 0;
-        }
+
+        //OPERADOR TERNARIO
+        $comestible = $request->comestible != "" ? 1 : 0;
+        $endemica = $request->endemica != "" ? 1 : 0;
+        $medicinal = $request->medicinal != "" ? 1 : 0;
+        $perene = $request->perene != "" ? 1 : 0;
+        $nitro = $request->fijNitro != "" ? 1 : 0;
+
+        $tSiembra = $this->handleSeasons($request, 'tsiembra');
+        $tCosecha = $this->handleSeasons($request, 'tcosecha');
+
         $item = Planta::create([
-           'cNombre' => $request->nombre,
-           'cNombreLatin' => $request->latin,
-           'cEspecie' => $request->especie,
-           'cDescripcion' => $request->desc,
-           'cOrigen' => $request->origen,
-           'cAportacion' => $request->aportacion,
-           'cBeneficios' => $request->beneficios,
-           'cMantenimiento' => $request->mantenimiento,
-           'iComestible' => $comestible,
-           'iEndemica' => $endemica,
-           'iMedicinal' => $medicinal,
-           'iPerenne' => $perene,
+            'cNombre' => $request->nombre,
+            'cNombreLatin' => $request->latin,
+            'cOtrosNombres' => $request->otrosnombres,
+            'cEspecie' => $request->especie,
+            'cDescripcion' => $request->desc,
+            'cOrigen' => $request->origen,
+            'cAportacion' => $request->aportacion,
+            'cBeneficios' => $request->beneficios,
+            'cMantenimiento' => $request->mantenimiento,
+            'iComestible' => $comestible,
+            'iEndemica' => $endemica,
+            'iMedicinal' => $medicinal,
+            'iPerenne' => $perene,
+            'grupo' => $request->grupo,
+            'cicloDeVida' => $request->cicloDeVida,
+            'crecimiento' => $request->crecimiento,
+            'familia' => $request->familia,
+            'zSiembra' => $request->zSiembra,
+            'profRaiz' => $request->profRaiz,
+            'fijNitro' => $nitro,
+            'tipoSuelo' => $request->tipoSuelo,
+            'humSuelo' => $request->humSuelo,            
+            'phSuelo' => $request->phSuelo,
+            'tGerminacion' => $request->tgerminacion,
+            'firstCosecha' => $request->firstCosecha,
+            'cicloCosecha' => $request->cicloCosecha,
+            'altura' => $request->altura,
+            'ancho' => $request->ancho,
+            'distPlantas' => $request->distPlantas,
+            'tempSiembra' => $tSiembra,
+            'tempCosecha' => $tCosecha,
+            'dimHojas' => $request->dimHojas,
+            'tRiego' => $request->tRiego,
+            'cIluminacion' => $request->cIluminacion,
+            'tempMin' => $request->tempMin,
+            'tempMax' => $request->tempMax,
            'idUsrAlta' => Auth::id(),
            'cExt' => $ext
         ]);
@@ -552,39 +662,53 @@ class adminController extends Controller
             $this->subeFoto($_FILES["archivo"],"catalogo",$request->idPlanta);
             Planta::where('idPlanta', $request->idPlanta)->update(['cExt' => $ext]);
         }
-        if($request->comestible != ""){
-            $comestible = 1;
-        } else {
-            $comestible = 0;
-        }
-        if($request->endemica != ""){
-            $endemica = 1;
-        } else {
-            $endemica = 0;
-        }
-        if($request->medicinal != ""){
-            $medicinal = 1;
-        }else{
-            $medicinal = 0;
-        }
-        if($request->perene != ""){
-            $perene = 1;
-        }else{
-            $perene = 0;
-        }
+         //OPERADOR TERNARIO
+         $comestible = $request->comestible != "" ? 1 : 0;
+         $endemica = $request->endemica != "" ? 1 : 0;
+         $medicinal = $request->medicinal != "" ? 1 : 0;
+         $perene = $request->perene != "" ? 1 : 0;
+         $nitro = $request->fijNitro != "" ? 1 : 0;
+ 
+         $tSiembra = $this->handleSeasons($request, 'tsiembra');
+         $tCosecha = $this->handleSeasons($request, 'tcosecha');
+
         $item = Planta::where('idPlanta', $request->idPlanta)->update([
-            'cNombre' => $request->nombre,
-           'cNombreLatin' => $request->latin,
-           'cEspecie' => $request->especie,
-           'cDescripcion' => $request->desc,
-           'cOrigen' => $request->origen,
-           'cAportacion' => $request->aportacion,
-           'cBeneficios' => $request->beneficios,
-           'cMantenimiento' => $request->mantenimiento,
-           'iComestible' => $comestible,
-           'iEndemica' => $endemica,
-           'iMedicinal' => $medicinal,
-           'iPerenne' => $perene,
+          'cNombre' => $request->nombre,
+            'cNombreLatin' => $request->latin,
+            'cOtrosNombres' => $request->otrosnombres,
+            'cEspecie' => $request->especie,
+            'cDescripcion' => $request->desc,
+            'cOrigen' => $request->origen,
+            'cAportacion' => $request->aportacion,
+            'cBeneficios' => $request->beneficios,
+            'cMantenimiento' => $request->mantenimiento,
+            'iComestible' => $comestible,
+            'iEndemica' => $endemica,
+            'iMedicinal' => $medicinal,
+            'iPerenne' => $perene,
+            'grupo' => $request->grupo,
+            'cicloDeVida' => $request->cicloDeVida,
+            'crecimiento' => $request->crecimiento,
+            'familia' => $request->familia,
+            'zSiembra' => $request->zSiembra,
+            'profRaiz' => $request->profRaiz,
+            'fijNitro' => $nitro,
+            'tipoSuelo' => $request->tipoSuelo,
+            'humSuelo' => $request->humSuelo,            
+            'phSuelo' => $request->phSuelo,
+            'tGerminacion' => $request->tgerminacion,
+            'firstCosecha' => $request->firstCosecha,
+            'cicloCosecha' => $request->cicloCosecha,
+            'altura' => $request->altura,
+            'ancho' => $request->ancho,
+            'distPlantas' => $request->distPlantas,
+            'tempSiembra' => $tSiembra,
+            'tempCosecha' => $tCosecha,
+            'dimHojas' => $request->dimHojas,
+            'tRiego' => $request->tRiego,
+            'cIluminacion' => $request->cIluminacion,
+            'tempMin' => $request->tempMin,
+            'tempMax' => $request->tempMax,
          ]);
          return redirect()->route('plantas');
     }
@@ -596,7 +720,11 @@ class adminController extends Controller
         $items = Semilla::where('cEstatus', 'A')
         ->orderBy('idSemilla')
         ->get();
+
+      
         return view ('admin/pages/SemillasShow')->with(['items'=>$items]);
+
+
     }
     public function formSemillas($id){
         if($id == 0){
@@ -645,11 +773,12 @@ class adminController extends Controller
 
     public function showContenedores(){
         $items = DB::table('contenedores as T1')
-        ->select('T1.*', 'T2.cExperimento', 'T3.nombre', 'T3.apellido')
+        ->select('T1.*', 'T2.cExperimento', 'T3.nombre', 'T3.apellido', 'T4.cNombre as tipo')
         ->leftJoin('experimentos as T2', 'T1.idExperimento', '=', 'T2.idExperimento')
         ->leftJoin('usuarios as T3', 'T1.idEncargado', '=', 'T3.idUsuario')
+        ->leftJoin('contenedores_tipos as T4', 'T1.idTipo', '=', 'T4.idTipo')
         ->where('T1.cEstatus', '=', 'A')
-        ->orderBy('cTipo')
+        ->orderBy('tipo')
         ->get();
         return view ('admin/pages/ContenedorShow')->with(['items'=>$items]);
     }
@@ -664,7 +793,9 @@ class adminController extends Controller
         ->orderBy('apellido')
         ->get();
         $exp = Experimento::where('cEstatus', 'A')->orderBy('cExperimento')->get();
-        return view ('admin/pages/ContenedorForm')->with(['item'=>$item[0],'responsables'=>$res,'experimentos'=>$exp]);
+        $tipos = ContenedorTipo::orderBy('cNombre')->get();
+        $mapa = Contenedor::where('cEstatus', 'A')->where('idContenedor', '!=', $id)->get();
+        return view ('admin/pages/ContenedorForm')->with(['item'=>$item[0],'responsables'=>$res,'experimentos'=>$exp, 'tipos'=>$tipos, 'mapa'=>$mapa]);
     }
     public function delContenedores($id){
         Contenedor::where('idContenedor', $id)->update(['cEstatus' => 'B']);
@@ -676,7 +807,10 @@ class adminController extends Controller
            'cTipo' => $request->tipo,
            'idExperimento' => $request->exp,
            'idEncargado' => $request->res,
-           'idUsrAlta' => Auth::id()
+           'idUsrAlta' => Auth::id(),
+           'idTipo' => $request->tipo,
+           'cNota' => $request->nota,
+           'cUbicacion' => $request->ubicacion
         ]);
         return redirect()->route('contenedores');
     }
@@ -686,7 +820,10 @@ class adminController extends Controller
             'cNombre' => $request->nombre,
            'cTipo' => $request->tipo,
            'idExperimento' => $request->exp,
-           'idEncargado' => $request->res
+           'idEncargado' => $request->res,
+           'idTipo' => $request->tipo,
+           'cNota' => $request->nota,
+           'cUbicacion' => $request->ubicacion
          ]);
          return redirect()->route('contenedores');
     }
@@ -695,35 +832,198 @@ class adminController extends Controller
 
     public function showContenedoresPlantas($id){
         $items = DB::table('relPlantaContenedor as T1')
-        ->select('T2.*', 'T1.idRel')
+        ->select('T2.*', 'T1.idRel', 'T1.cEstatus as estatus', 'T1.idUsrAlta as usuario', 'T1.created_at as fecha', 'T1.cNota', 'T3.name', 'T4.cExperimento')
         ->leftJoin('plantas as T2', 'T1.idPlanta', '=', 'T2.idPlanta')
+        ->leftJoin('users as T3', 'T1.idUsrAlta', '=', 'T3.id')
+        ->leftJoin('experimentos as T4', 'T1.idExperimento', '=', 'T4.idExperimento')
         ->where('T1.idContenedor', '=', $id)
         ->get();
 
         $contenedor = Contenedor::where('idContenedor', $id)->get();
         return view ('admin/pages/ContenedorPlantaShow')->with(['plantas'=>$items,'info'=>$contenedor[0]]);
     }
-    public function formContenedoresPlantas($id){
+    public function formContenedoresPlantas($id, $idRel){
         $plantas = Planta::where('cEstatus', 'A')->orderBy('cNombre')->get();
         $contenedor = Contenedor::where('idContenedor', $id)->get();
-        return view ('admin/pages/ContenedorPlantaForm')->with(['plantas'=>$plantas, 'info'=>$contenedor[0]]);
+        $exps = Experimento::where('cEstatus', 'A')->get();
+        if($idRel > 0){
+            $registro = relPlantaContenedor::where('idRel', $idRel)->get();
+            return view ('admin/pages/ContenedorPlantaForm')->with(['plantas'=>$plantas, 'exps'=>$exps, 'info'=>$contenedor[0], 'registro'=>$registro[0]]);
+        } else {
+            $registro = 0;
+            return view ('admin/pages/ContenedorPlantaForm')->with(['plantas'=>$plantas, 'exps'=>$exps, 'info'=>$contenedor[0], 'registro'=>$registro]);
+        }
+        
     }
     public function delContenedoresPlantas($id,$conte){
-        DB::table('relPlantaContenedor')
+        /*DB::table('relPlantaContenedor')
         ->where('idPlanta', '=', $id)
         ->where('idContenedor', $conte)
-        ->delete();
+        ->delete();*/
+        return redirect()->route('contenedores.plantas', ['id' => $conte]);
+    }
+    public function bajaContenedoresPlantas($id,$conte,$estatus){
+        relPlantaContenedor::where('idPlanta', '=', $id)
+        ->where('idContenedor', $conte)
+        ->update([
+            'cEstatus' => $estatus
+        ]);
         return redirect()->route('contenedores.plantas', ['id' => $conte]);
     }
     public function creaContenedoresPlantas(Request $request){
-        DB::table('relPlantaContenedor')->insert([
-            'idPlanta' => $request->planta,
-            'idContenedor' => $request->idContenedor,
-            'idUsrAlta' => Auth::id()
-        ]);
+        if($request->idRel > 0){
+            relPlantaContenedor::where('idRel', $request->idRel)
+            ->update([
+                'idExperimento' => $request->exp,
+                'cNota' => $request->cNota
+            ]);
+        } else {
+            relPlantaContenedor::create([
+                'idPlanta' => $request->planta,
+                'idContenedor' => $request->idContenedor,
+                'idExperimento' => $request->exp,
+                'cNota' => $request->cNota,
+                'idUsrAlta' => Auth::id()
+            ]);
+        }
+       
         return redirect()->route('contenedores.plantas', ['id' => $request->idContenedor]);
     }
     
+
+
+    public function showContenedoresTipos(){
+        $LcResp = ContenedorTipo::withCount('contenedores')->get();
+        return view ('admin/pages/ContenedorTipoShow')->with(['items'=>$LcResp]);
+    }
+    public function upContenedoresTipos(Request $request){
+        $item = ContenedorTipo::where('idTipo', $request->idTipo)->update([
+            'cNombre' => $request->nombre
+         ]);
+         return redirect()->route('contenedores.tipos');
+    }
+    public function delContenedoresTipos($id){
+        ContenedorTipo::where('idTipo', $id)
+        ->delete();
+        return redirect()->route('contenedores.tipos');
+    }
+    public function creaContenedoresTipos(Request $request){
+        $item = ContenedorTipo::create([
+            'cNombre' => $request->nombre,
+            'idUsrAlta' => Auth::id()
+         ]);
+         return redirect()->route('contenedores.tipos');
+    }
+    public function formContenedoresTipo($id){
+        if($id == 0){
+            $item = json_decode('[{"idTipo":0}]');
+        } else {
+            $item = ContenedorTipo::where('idTipo', $id)->get();
+        }
+       
+       
+        return view ('admin/pages/ContenedorTipoForm')->with(['item'=>$item[0]]);
+    }
+
+
+
+
+    public function showBitacora($id){
+        //$LcResp = Bitacora::where('idRelPlantaContenedor', $id)->get();
+        $items = Bitacora::select('bitacora_plantas.*', 'users.name', 'plantas.cNombre as planta', 'contenedores.cNombre as contenedor' )
+        ->leftJoin('users', 'bitacora_plantas.idUsrAlta', '=', 'users.id')
+        ->leftJoin('relPlantaContenedor', 'relPlantaContenedor.idRel', '=', 'bitacora_plantas.idrelPlantaContenedor')
+        ->leftJoin('plantas', 'relPlantaContenedor.idPlanta', '=', 'plantas.idPlanta')
+        ->leftJoin('contenedores', 'relPlantaContenedor.idContenedor', '=', 'contenedores.idContenedor')
+        ->where('relPlantaContenedor.idRel', $id)
+        ->where('bitacora_plantas.cEstatus', 'A')
+        ->get();
+        return view ('admin/pages/BitacorasShow')->with(['items'=>$items]);
+    }
+    public function upBitacora(Request $request){
+        $item = Bitacora::where('idBitacora', $request->idBitacora)->update([
+            'cTitulo' => $request->titulo,
+            'cNota' => $request->nota
+         ]);
+         return redirect()->route('contenedores.bit', ['idPlanta' => $request->idrelPlantaContenedor]);
+    }
+    public function delBitacora($id){
+        Bitacora::where('idTipo', $id)
+        ->delete();
+        return redirect()->route('contenedores.bit', ['id' => $id]);
+    }
+    public function estatusBitacora($id,$estatus){
+        Bitacora::where('idBitacora', '=', $id)
+        ->update([
+            'cEstatus' => $estatus
+        ]);
+        $item = Bitacora::where('idBitacora', $id)->first();
+        return redirect()->route('contenedores.bit', ['idPlanta' => $item->idrelPlantaContenedor]);
+    }
+    public function creaBitacora(Request $request){
+        $item = Bitacora::create([
+            'idrelPlantaContenedor' => $request->idrelPlantaContenedor,
+            'idUsrAlta' => Auth::id(),
+            'cTitulo' => $request->titulo,
+            'cNota' => $request->nota,
+         ]);
+         return redirect()->route('contenedores.bit', ['idPlanta' => $request->idrelPlantaContenedor]);
+    }
+    public function formBitacora($id, $idRel){
+        if($id == 0){
+            $item = json_decode('[{"idBitacora":0, "idrelPlantaContenedor": '.$idRel.'}]');
+        } else {
+            $item = Bitacora::where('idBitacora', $id)->get();
+        }
+       
+       
+        return view ('admin/pages/BitacorasForm')->with(['item'=>$item[0]]);
+    }
+    public function verImagenesBitacora($id){
+        $items = BitacoraImagen::where('idBitacora', $id)->get();
+        return $items;
+    }
+    public function subirImagenBitacora(Request $request){
+        $cArchivo = $_FILES["image"]["name"];
+        $idBitacora = $request->idBitacora;
+      
+        try {
+            $item = BitacoraImagen::create([
+                'idBitacora' => $idBitacora,
+                'cNombre' => $cArchivo
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+       
+        $this->subeFoto($_FILES["image"],"bitacora",$item->idBitacora."-".$item->idBitImg);
+        //$filePath = $file->storeAs('bitacora', $originalName, 'public');
+        return ("archivo subido correctamente");
+
+    }
+    public function delImagenBitacora($id){
+        $item = BitacoraImagen::where('idBitImg', $id)->first();
+        $LcResp = $this->deleteImage($item->idBitacora."-".$id.".webp");
+        $cExt = $this->verExtension($item->cNombre);
+        $this->deleteImage($item->idBitacora."-".$id.".".$cExt);
+        BitacoraImagen::where('idBitImg', $id)->delete();
+        return ($LcResp);
+
+    }
+    private function deleteImage($filename)
+    {
+        $path = public_path('images/content/bitacora/' . $filename);
+
+        if (File::exists($path)) {
+            File::delete($path);
+            return "Archivo eliminado con éxito.". $filename;
+        } else {
+            return "Archivo no encontrado.".$filename;
+        }
+    }
+
+
+
 
 
 
@@ -803,9 +1103,13 @@ class adminController extends Controller
         if($_FILES["archivo"]["name"]){
             $cArchivo = $_FILES["archivo"]["name"];
             $ext = $this->verExtension($cArchivo);
-            $this->subeFoto($_FILES["archivo"],"colaboradores",$request->idUsuario);
+            $subeFoto = $this->subeFoto($_FILES["archivo"],"colaboradores",$request->idUsuario);
             UserInfo::where('idUsuario', $request->idUsuario)->update(['cExt' => $ext]);
         }
+
+       
+
+        //return $subeFoto;
         if($request->estatus==="on"){
             $estatus = 'A';
         } else {
@@ -836,6 +1140,8 @@ class adminController extends Controller
             'name' => $request->nombre." ".$request->apellido,
             'email' => $request->email,
         ]);
+
+       
          return redirect()->route('usuarios');
     }
 
@@ -855,10 +1161,26 @@ class adminController extends Controller
         $target_dir = public_path()."/images/content";
         $infoArchivo = new SplFileInfo($archivo['name']);
         $ext = $infoArchivo->getExtension();
-        if(move_uploaded_file($archivo['tmp_name'], $target_dir."/".$ruta."/".$id.".".$ext)){
+        /*if(move_uploaded_file($archivo['tmp_name'], $target_dir."/".$ruta."/".$id.".".$ext)){
             //CREA UNA IMAGEN EN FORMATO WEBP
             shell_exec("convert -colorspace sRGB '".$target_dir."/".$ruta."/".$id.".".$ext."' -quality 90 ".$target_dir."/".$ruta."/".$id.".webp");
-        }  
+        } */ 
+
+        try {
+            if(move_uploaded_file($archivo['tmp_name'], $target_dir."/".$ruta."/".$id.".".$ext)) {
+                //CREA UNA IMAGEN EN FORMATO WEBP
+                $command = "convert -colorspace sRGB '".$target_dir."/".$ruta."/".$id.".".$ext."' -quality 90 ".$target_dir."/".$ruta."/".$id.".webp";
+                shell_exec($command);
+                echo 'archivo subido correctamente';
+            } else {
+                $error = error_get_last();
+                throw new Exception('Error al mover el archivo subido. Detalles: ' . ($error ? $error['message'] : 'No se pudo determinar el error.'));
+            }
+        } catch (Exception $e) {
+            // Manejo del error
+            echo 'Error: ' . $e->getMessage();
+        }
+        
         
     }
 

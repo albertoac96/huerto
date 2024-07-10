@@ -1,8 +1,4 @@
- <div class="container">
 
-         <div class="row contenedorcama">
-             <!-- contenedor para la infografía -->
-             <div class="col-md-6">
                  <svg id="map" baseprofile="tiny" fill="#7c7c7c" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" version="1.2" viewbox="0 0 1000 1445" xmlns="http://www.w3.org/2000/svg">
                      <!-- camas de cultivo -->
                      <g id="Capa_1">
@@ -350,47 +346,4 @@
                      <!-- Termina Cama 09 -->
                  </svg>
                  <!-- Termina Infografía svg -->
-             </div>
-
-
-
-             <!-- contenedor para los recuadros con la info de la cama -->
-
-             <div class="card border-success mb-3" style="max-width: 25rem;max-height: 15rem; background-color: #F2E4C5;">
-                <div class="card-header bg-transparent border-success">
-                    <h5 class="texttitle">Camas de cultivo</h5>
-                </div>
-                <div class="card-body text-success text-center">
-                    <p class="card-text text-center">
-                        <table class="tablainfogeneral">
-                            <tbody>
-                                <tr>
-                                    <th scope="row">No. de Camas</th>
-                                    <td>9</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Contenedores Adaptados</th>
-                                    <td>6</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Hidromacetas</th>
-                                    <td>28</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Instalaciones de bolsas para plantar</th>
-                                    <td>2</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </p>
-                </div>
-             
-            </div>
-
-
-
-           
-
-         </div>
-     </div>
-     </div>
+            

@@ -9,9 +9,9 @@
         <h2>PROYECTO</h2>
        
         @if($item->idProyecto==0)
-        <form method="post" action="{{route('creaProyecto')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('creaProyecto')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @else
-        <form method="post" action="{{route('upProyecto')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('upProyecto')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @endif
          @csrf
 
@@ -55,7 +55,7 @@
             <div class="mb-3">
                 <label for="formFile" class="form-label">Huerto</label>
                 <select class="form-select mb-2" value="@if($item->idProyecto>0) {{$item->idHuerto}} @else 0 @endif" required name="huerto">    
-                    <option value="0" @if($item->idProyecto>0 && $item->idHuerto==0) selected @endif>Seleccione el responsable</option>    
+                    <option value="0" @if($item->idProyecto>0 && $item->idHuerto==0) selected @endif>Seleccione el huerto</option>    
                   @foreach($huertos as $huerto)
                     @if($item->idProyecto>0 && $huerto->idHuerto==$item->idHuerto)
                         <option value="{{$huerto->idHuerto}}" selected >{{$huerto->cHuerto}}</option>';
@@ -67,16 +67,25 @@
             </div>
 
 
-           
-            <div class="mb-3">
-                <label for="cDesc" class="form-label">Fecha</label> 
+           <div class="row">
+            <div class="mb-3 col-6">
+                <label for="cDesc" class="form-label">Fecha de Inicio</label> 
                 @if($item->idProyecto>0)
-                <input type="date" name="fecha" step="1" value="{{$item->dInicio}}" required>
+                <input type="date" name="inicio" step="1" value="{{$item->dInicio}}" required>
                 @else
-                <input type="date" name="fecha" step="1" value="{{$Hoy()}}" required>
+                <input type="date" name="inicio" step="1" value="{{$Hoy()}}" required>
                 @endif
             </div>
 
+<div class="mb-3 col-6">
+                <label for="cDesc" class="form-label">Fecha de Fin</label> 
+                @if($item->idProyecto>0)
+                <input type="date" name="fin" step="1" value="{{$item->dFin}}">
+                @else
+                <input type="date" name="fin" step="1">
+                @endif
+            </div>
+            </div>
 
             
             <div class="row">

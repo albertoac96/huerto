@@ -1,8 +1,8 @@
-@extends('sitio.main.sitio', ['data.sitiosrel' => 'sitiosrel'])
+@extends('sitio.main.sitio', ['$sitiosrel' => 'sitiosrel'])
 
 @section('content')
        
-    @include("sitio.actividad.verActividades",['data.actividades' => 'actividades'])
+    @include("sitio.actividad.verActividades",['$actividades' => 'actividades'])
   
    
    

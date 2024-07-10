@@ -9,9 +9,9 @@
         <h2>SEMILLA</h2>
        
         @if($item->idSemilla==0)
-        <form method="post" action="{{route('creaSem')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('creaSem')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @else
-        <form method="post" action="{{route('upSem')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('upSem')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @endif
          @csrf
 
@@ -22,36 +22,36 @@
 
              <div class="row">
                 <div class="mb-3 col-12">
-                    <label for="cActvidad" class="form-label">Nombre de la semilla</label>
+                    <label for="cActvidad" class="form-label">Nombre de la semilla*</label>
                     <input type="text" class="form-control" name="nombre" value="@if($item->idSemilla>0) {{$item->cNombre}} @endif" required>
                 </div>
                 <div class="mb-3 col-6">
-                    <label for="cDesc" class="form-label">Color</label>
+                    <label for="cDesc" class="form-label">Color*</label>
                     <input type="text" class="form-control" name="color" value="@if($item->idSemilla>0) {{$item->cColor}} @endif" required>
                 </div>
                 <div class="mb-3 col-6">
-                    <label for="cDesc" class="form-label">Peso</label>
+                    <label for="cDesc" class="form-label">Peso*</label>
                     <input type="text" class="form-control" name="peso" value="@if($item->idSemilla>0) {{$item->nPeso}} @endif" required>
                 </div>
                 <div class="mb-3 col-6">
                     <label for="cDesc" class="form-label">Cosecha</label>
-                    <input type="text" class="form-control" name="cosecha" value="@if($item->idSemilla>0) {{$item->cCosecha}} @endif" required>
+                    <input type="text" class="form-control" name="cosecha" value="@if($item->idSemilla>0) {{$item->cCosecha}} @endif">
                 </div>
                 <div class="mb-3 col-6">
                     <label for="cDesc" class="form-label">Tipo de Polinización</label>
-                    <input type="text" class="form-control" name="poli" value="@if($item->idSemilla>0) {{$item->cTipoPolinizacion}} @endif" required>
+                    <input type="text" class="form-control" name="poli" value="@if($item->idSemilla>0) {{$item->cTipoPolinizacion}} @endif">
                 </div>
                 <div class="mb-3 col-6">
                     <label for="cDesc" class="form-label">Costo unitario</label>
-                    <input type="text" class="form-control" name="costo" value="@if($item->idSemilla>0) {{$item->nCostoUnitario}} @endif" required>
+                    <input type="text" class="form-control" name="costo" value="@if($item->idSemilla>0) {{$item->nCostoUnitario}} @endif">
                 </div>
                 <div class="mb-3 col-6">
                     <label for="cDesc" class="form-label">Número de lote</label>
-                    <input type="text" class="form-control" name="lote" value="@if($item->idSemilla>0) {{$item->nLote}} @endif" required>
+                    <input type="text" class="form-control" name="lote" value="@if($item->idSemilla>0) {{$item->nLote}} @endif">
                 </div>
                 <div class="mb-3 col-12">
                     <label for="cDesc" class="form-label">Proveedor</label>
-                    <input type="text" class="form-control" name="prov" value="@if($item->idSemilla>0) {{$item->cProveedor}} @endif" required>
+                    <input type="text" class="form-control" name="prov" value="@if($item->idSemilla>0) {{$item->cProveedor}} @endif">
                 </div>
             </div>
 

@@ -16,7 +16,8 @@
                     <div class="col mt-3">
                         <div class="card bg-transparent" style="border:0;">
                             <div class="img-container">
-                                <img src="{{ asset('images/content/colaboradores/' . $item->idUsuario . '.' . $item->cExt) }}" style="border:0;border-top-left-radius:3em;border-bottom-right-radius:3em;object-fit: cover;">
+                                <img src="{{ asset('images/content/colaboradores/' . $item->idUsuario . '.webp') }}" 
+                                style="border:0;border-top-left-radius:3em;border-bottom-right-radius:3em;object-fit: cover;">
                             </div>
                            
                                 <div class="card-img-overlay">

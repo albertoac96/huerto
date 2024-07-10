@@ -6,7 +6,7 @@
 <div class="container-fluid secClara">
     <div class='container'>
         <h2 class='titulo'>{{$proyecto->cNombre}}</h2>
-        <p><b>Fecha del proyecto: </b>{{$proyecto->dInicio}}</p>
+        <p><b>Fecha del proyecto: </b>{{$FechaCorta($proyecto->dInicio)}}</p>
         <h4 class='texttitle'>Descripción</h4>
         <label class='textcard m-3'>{{$proyecto->cDescripcion}}</label>
 
@@ -39,7 +39,7 @@
             </div>
 
             <div class="card-body">
-                <label class='textcard'>{{$proyecto->nombre}} {{$proyecto->apellido}}</label>
+                <label class='textcard'>{{$proyecto->nombre}} {{$proyecto->apellido}}</label><br>
                 <label class="card-text">{{$proyecto->escolaridad}}</label><br>
 
                 @if($proyecto->comunidadIbero)

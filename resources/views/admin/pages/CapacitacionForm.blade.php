@@ -9,9 +9,9 @@
         <h2>CAPACITACIÓN</h2>
        
         @if($item->idCapacitacion==0)
-        <form method="post" action="{{route('creaCapacitacion')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('creaCapacitacion')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @else
-        <form method="post" action="{{route('upCapacitacion')}}" id="f1" enctype="multipart/form-data">
+        <form method="post" action="{{route('upCapacitacion')}}" id="f1" onsubmit="showOverlay()" enctype="multipart/form-data">
         @endif
          @csrf
 
