@@ -62,7 +62,7 @@ class adminController extends Controller
 
         // Verifica si la respuesta del reCAPTCHA está presente
         if (is_null($recaptcha_response) || $recaptcha_response == "") {
-            return redirect('/admin')->back()->with(['status' => 'Completa el reCaptcha para iniciar sesión']);
+            return redirect('/admin')->with(['status' => 'Completa el reCaptcha para iniciar sesión']);
             //return redirect()->back()->with('status', 'Completa el reCaptcha para iniciar sesión');
         }
 
