@@ -46,6 +46,8 @@ class adminController extends Controller
     public function verjson()
     {
         $path = 'reporte.json'; // El nombre del archivo en el storage
+        $content = Storage::disk('local')->get($path);
+        return $content;
         if (!Storage::disk('local')->exists($path)) {
             return response()->json(['error' => 'Archivo no encontrado'], 404);
         }

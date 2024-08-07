@@ -13,17 +13,11 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <link href="../styles/bootstrap.css" rel="stylesheet"  type="text/css">
-    <script src="../styles/bootstrap.bundle.js"></script>
-     <script src="../sitio/catalogo/infografia/infografia.js"></script>
+   <link href="{{ asset('styles/bootstrap.css') }}" rel="stylesheet"  type="text/css">
+     <script src="{{ asset('styles/bootstrap.bundle.js') }}"></script>
+  <script src="{{ asset('styles/jquery-3.6.0.min.js') }}"></script>
 
   
-
-
-     <link rel="stylesheet" href="../styles/libraries/owlcarrusel/dist/owl.carousel.min.css">
-
-     <script src="../styles/libraries/owlcarrusel/dist/owl.carrusel.min.js"></script>
-
      @yield('js')
 
 
@@ -51,11 +45,7 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+                           
 
                          
                         @else
